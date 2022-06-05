@@ -2,12 +2,20 @@
   <div class="p-30">
     <h1 class="text-3xl pb-5">My App</h1>
     <div class="space-y-6 space-x-2">
+      <wui-button primary tiny>Tiny button</wui-button>
+      <wui-button tiny>Tiny button</wui-button>
+    </div>
+    <div class="space-y-6 space-x-2">
       <wui-button primary small>Small button</wui-button>
       <wui-button small>Small button</wui-button>
     </div>
     <div class="space-y-6 space-x-2">
       <wui-button primary>Default button</wui-button>
       <wui-button>Default button</wui-button>
+    </div>
+    <div class="space-y-6 space-x-2">
+      <wui-button primary medium>Medium button</wui-button>
+      <wui-button medium>Medium button</wui-button>
     </div>
     <div class="space-y-6 space-x-2">
       <wui-button primary large>Large button</wui-button>

@@ -1,7 +1,7 @@
 <template>
   <button
     data-cy="button"
-    class="wui-button rounded border-1 focus:ring-3 ring-opacity-20 shadow-sm"
+    class="wui-button rounded border-1 focus:ring-3 ring-opacity-30 shadow-sm transition duration-150"
     :class="computedClass"
   >
     <slot />
@@ -19,6 +19,7 @@ const props = defineProps<{
   large?: boolean
   medium?: boolean
   small?: boolean
+  tiny?: boolean
 }>()
 
 const color = computed((): string => {
@@ -30,8 +31,10 @@ const color = computed((): string => {
 })
 
 const sizing = computed((): string => {
-  if (props.large) return "py-2 px-5 "
+  if (props.large) return "py-3 px-6 text-lg"
+  if (props.medium) return "py-2 px-5"
   if (props.small) return "py-1 px-3 text-sm"
+  if (props.tiny) return "py-1 px-3 text-xs"
   return "py-2 px-4 text-sm"
 })
 
@@ -39,8 +42,9 @@ const computedClass = computed(() => {
   switch (true) {
     case props.primary || props.warning || props.danger || props.success:
       return (
-        `border-${color.value}-600 bg-${color.value}-500 ` +
-        `hover:border-opacity-100 hover:bg-${color.value}-500 ` +
+        `border-${color.value}-600 bg-${color.value}-600 ` +
+        `hover:border-opacity-10 hover:bg-${color.value}-500 ` +
+        `focus:border-${color.value}-400 ring-${color.value}-500 ` +
         "text-white font-semibold border-opacity-20 " +
         sizing.value
       )

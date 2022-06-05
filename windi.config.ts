@@ -7,6 +7,7 @@ const colors = [
   "green",
   "blue",
   "yellow",
+  "violet",
   "indigo",
   "neutral",
 ]
@@ -18,7 +19,7 @@ safelist.push(
     .map((color) =>
       shades.map(
         (shade) =>
-          `bg-${color}-${shade} border-${color}-${shade} hover:bg-${color}-${shade} hover:border-${color}-${shade}`
+          `bg-${color}-${shade} border-${color}-${shade} hover:bg-${color}-${shade} hover:border-${color}-${shade} ring-${color}-${shade}`
       )
     )
     .flat()
