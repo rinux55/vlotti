@@ -1,14 +1,6 @@
-<template>
-  <button
-    data-cy="button"
-    class="wui-button rounded border-1 focus:ring-3 ring-opacity-30 shadow-sm transition duration-150"
-    :class="computedClass"
-  >
-    <slot />
-  </button>
-</template>
 <script setup lang="ts">
 import { computed, defineProps } from "vue"
+import { useColor } from "../../composables/use-color"
 
 const props = defineProps<{
   primary?: boolean
@@ -22,15 +14,9 @@ const props = defineProps<{
   tiny?: boolean
 }>()
 
-const color = computed((): string => {
-  if (props.primary) return "indigo"
-  if (props.warning) return "yellow"
-  if (props.danger) return "red"
-  if (props.success) return "green"
-  return ""
-})
+const color = useColor(props)
 
-const sizing = computed((): string => {
+const size = computed((): string => {
   if (props.large) return "py-3 px-6 text-lg"
   if (props.medium) return "py-2 px-5"
   if (props.small) return "py-1 px-3 text-sm"
@@ -38,23 +24,34 @@ const sizing = computed((): string => {
   return "py-2 px-4 text-sm"
 })
 
-const computedClass = computed(() => {
-  switch (true) {
-    case props.primary || props.warning || props.danger || props.success:
-      return (
-        `border-${color.value}-600 bg-${color.value}-600 ` +
-        `hover:border-opacity-10 hover:bg-${color.value}-500 ` +
-        `focus:border-${color.value}-400 ring-${color.value}-500 ` +
-        "text-white font-semibold border-opacity-20 " +
-        sizing.value
-      )
-    default:
-      return (
-        "border-gray-300 bg-white text-gray-700 font-medium " +
+const computedClass = computed((): string => {
+  const classes = []
+
+  if (color.value) {
+    classes.push(
+      `text-white border-transparent bg-${color.value}-600 ring-${color.value}-500 ` +
+        `hover:bg-${color.value}-500`
+    )
+  } else {
+    classes.push(
+      "text-gray-700 border-gray-300 bg-white ring-blue-500 " +
         "hover:border-gray-400 hover:text-gray-900 " +
-        "focus:border-blue-400 ring-blue-500 " +
-        sizing.value
-      )
+        "focus:border-blue-400"
+    )
   }
+
+  classes.push(size)
+
+  return classes.join(" ")
 })
 </script>
+
+<template>
+  <button
+    data-cy="button"
+    class="wui-button font-medium rounded border-1 shadow-sm focus:ring-3 ring-opacity-30 transition duration-150"
+    :class="computedClass"
+  >
+    <slot />
+  </button>
+</template>
