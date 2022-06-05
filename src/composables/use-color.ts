@@ -7,12 +7,13 @@ interface Props {
   success?: boolean
 }
 
-export function useColor(props: Props): ComputedRef<string> {
-  return computed<string>(() => {
+export function useColor(props: Props): ComputedRef<string | boolean> {
+  return computed(() => {
     if (props.primary) return "indigo"
     if (props.warning) return "yellow"
     if (props.danger) return "red"
     if (props.success) return "green"
-    return ""
+
+    return false
   })
 }

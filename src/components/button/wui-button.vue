@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps } from "vue"
+import { computed, defineProps, ref } from "vue"
 import { useColor } from "../../composables/use-color"
 
 const props = defineProps<{
@@ -21,6 +21,7 @@ const size = computed((): string => {
   if (props.medium) return "py-2 px-5"
   if (props.small) return "py-1 px-3 text-sm"
   if (props.tiny) return "py-1 px-3 text-xs"
+
   return "py-2 px-4 text-sm"
 })
 
@@ -29,18 +30,19 @@ const computedClass = computed((): string => {
 
   if (color.value) {
     classes.push(
-      `text-white border-transparent bg-${color.value}-600 ring-${color.value}-500 ` +
-        `hover:bg-${color.value}-500`
+      `text-white border-transparent bg-${color.value}-600 ` +
+        `hover:bg-${color.value}-500 ` +
+        `ring-${color.value}-500 `
     )
   } else {
     classes.push(
-      "text-gray-700 border-gray-300 bg-white ring-blue-500 " +
+      "text-gray-700 border-gray-300 bg-white " +
         "hover:border-gray-400 hover:text-gray-900 " +
-        "focus:border-blue-400"
+        "focus:border-blue-400 ring-blue-500 "
     )
   }
 
-  classes.push(size)
+  classes.push(size.value)
 
   return classes.join(" ")
 })
@@ -48,7 +50,7 @@ const computedClass = computed((): string => {
 
 <template>
   <button
-    data-cy="button"
+    data-test="button"
     class="wui-button font-medium rounded border-1 shadow-sm focus:ring-3 ring-opacity-30 transition duration-150"
     :class="computedClass"
   >
