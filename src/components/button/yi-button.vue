@@ -51,7 +51,7 @@ const computedClass = computed((): string => {
 <template>
   <button
     data-test="button"
-    class="wui-button font-medium rounded border-1 shadow-sm focus:ring-3 ring-opacity-30 transition duration-150"
+    class="yi-button font-medium rounded border-1 shadow-sm focus:ring-3 ring-opacity-30 transition duration-150"
     :class="computedClass"
   >
     <slot />

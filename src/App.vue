@@ -2,29 +2,29 @@
   <div class="p-30">
     <h1 class="text-3xl pb-5">My App</h1>
     <div class="space-y-6 space-x-2">
-      <wui-button primary tiny>Tiny button</wui-button>
-      <wui-button tiny>Tiny button</wui-button>
+      <yi-button primary tiny>Tiny button</yi-button>
+      <yi-button tiny>Tiny button</yi-button>
     </div>
     <div class="space-y-6 space-x-2">
-      <wui-button primary small>Small button</wui-button>
-      <wui-button small>Small button</wui-button>
+      <yi-button primary small>Small button</yi-button>
+      <yi-button small>Small button</yi-button>
     </div>
     <div class="space-y-6 space-x-2">
-      <wui-button primary>Default button</wui-button>
-      <wui-button>Default button</wui-button>
+      <yi-button primary>Default button</yi-button>
+      <yi-button>Default button</yi-button>
     </div>
     <div class="space-y-6 space-x-2">
-      <wui-button primary medium>Medium button</wui-button>
-      <wui-button medium>Medium button</wui-button>
+      <yi-button primary medium>Medium button</yi-button>
+      <yi-button medium>Medium button</yi-button>
     </div>
     <div class="space-y-6 space-x-2">
-      <wui-button primary large>Large button</wui-button>
-      <wui-button large>Large button</wui-button>
+      <yi-button primary large>Large button</yi-button>
+      <yi-button large>Large button</yi-button>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import wuiButton from "./components/button/wui-button.vue"
+import yiButton from "./components/button/yi-button.vue"
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");

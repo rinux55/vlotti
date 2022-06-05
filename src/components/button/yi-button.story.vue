@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import WuiButton from "./wui-button.vue"
+import YiButton from "./yi-button.vue"
 </script>
 <template>
   <story>
-    <wui-button>Default</wui-button>
+    <yi-button>Default</yi-button>
   </story>
 </template>

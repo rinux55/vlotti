@@ -1,11 +1,11 @@
 import { mount } from "cypress/vue"
-import WuiButton from "./wui-button.vue"
+import YiButton from "./yi-button.vue"
 
-describe("wui-button", () => {
+describe("yi-button", () => {
   const buttonText = "Click me!"
 
   it("should render a button with text", () => {
-    mount(WuiButton, {
+    mount(YiButton, {
       slots: {
         default: () => buttonText,
       },
@@ -16,7 +16,7 @@ describe("wui-button", () => {
   })
 
   it("should render a large button", () => {
-    mount(WuiButton, {
+    mount(YiButton, {
       slots: {
         default: () => buttonText,
       },
