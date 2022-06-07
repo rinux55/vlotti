@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps } from "vue"
+import { computed } from "vue"
 import { useSize } from "@/composables/use-size"
 
 const props = defineProps<{
@@ -14,18 +14,28 @@ const props = defineProps<{
   tiny?: boolean
 }>()
 
+const emit = defineEmits(["update:modelValue"])
+
 const size = useSize(props)
 
 const computedClass = computed((): string => {
   return size.value
+})
+
+const value = computed({
+  get() {
+    return props.modelValue
+  },
+  set(value) {
+    emit("update:modelValue", value)
+  },
 })
 </script>
 <template>
   <input
     class="rounded border-1 border-gray-300 shadow-sm transition duration-150 ring-primary-500 ring-opacity-30 focus:ring-3 focus:border-primary-400 focus-visible:outline-none"
     :class="computedClass"
-    :value="modelValue"
     :placeholder="placeholder"
-    @input="$emit('update:modelValue', $event)"
+    v-model="value"
   />
 </template>

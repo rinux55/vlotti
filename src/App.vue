@@ -30,10 +30,11 @@
   </div>
 </template>
 <script setup lang="ts">
+import { ref } from "vue"
 import fiButton from "./components/button/fi-button.vue"
 import fiInput from "./components/input/fi-input.vue"
 
-let name = "test"
+let name = ref("test")
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
