@@ -43,7 +43,7 @@ const computedClass = computed((): string => {
 <template>
   <button
     data-test="button"
-    class="yi-button font-medium rounded border-1 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none"
+    class="fi-button font-medium rounded border-1 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none"
     :class="computedClass"
   >
     <slot />

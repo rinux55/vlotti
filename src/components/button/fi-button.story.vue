@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import YiButton from "./yi-button.vue"
+import FiButton from "./fi-button.vue"
 </script>
 <template>
   <story>
-    <yi-button>Default</yi-button>
+    <fi-button>Default</fi-button>
   </story>
 </template>

@@ -1,11 +1,11 @@
 import { mount } from "cypress/vue"
-import YiButton from "./yi-button.vue"
+import FiButton from "./fi-button.vue"
 
-describe("yi-button", () => {
+describe("fi-button", () => {
   const buttonText = "Click me!"
 
   it("should render a button with text", () => {
-    mount(YiButton, {
+    mount(FiButton, {
       slots: {
         default: () => buttonText,
       },
@@ -16,7 +16,7 @@ describe("yi-button", () => {
   })
 
   it("should render a large button", () => {
-    mount(YiButton, {
+    mount(FiButton, {
       slots: {
         default: () => buttonText,
       },

@@ -2,36 +2,36 @@
   <div class="p-30">
     <h1 class="text-3xl pb-5">My App {{ name }}</h1>
     <div class="space-y-6 space-x-2">
-      <yi-button primary tiny>Tiny button</yi-button>
-      <yi-button tiny>Tiny button</yi-button>
-      <yi-input tiny />
+      <fi-button primary tiny>Tiny button</fi-button>
+      <fi-button tiny>Tiny button</fi-button>
+      <fi-input tiny />
     </div>
     <div class="space-y-6 space-x-2">
-      <yi-button primary small>Small button</yi-button>
-      <yi-button small>Small button</yi-button>
-      <yi-input small />
+      <fi-button primary small>Small button</fi-button>
+      <fi-button small>Small button</fi-button>
+      <fi-input small />
     </div>
     <div class="space-y-6 space-x-2">
-      <yi-button primary>Default button</yi-button>
-      <yi-button>Default button</yi-button>
-      <yi-input v-model="name" placeholder="Enter app name" />
+      <fi-button primary>Default button</fi-button>
+      <fi-button>Default button</fi-button>
+      <fi-input v-model="name" placeholder="Enter app name" />
     </div>
     <div class="space-y-6 space-x-2">
-      <yi-button primary medium>Medium button</yi-button>
-      <yi-button medium>Medium button</yi-button>
-      <yi-input medium />
+      <fi-button primary medium>Medium button</fi-button>
+      <fi-button medium>Medium button</fi-button>
+      <fi-input medium />
     </div>
     <div class="space-y-6 space-x-2">
-      <yi-button primary large>Large button</yi-button>
-      <yi-button large>Large button</yi-button>
-      <yi-input large />
+      <fi-button primary large>Large button</fi-button>
+      <fi-button large>Large button</fi-button>
+      <fi-input large />
     </div>
     <div class="space-y-6 space-x-2"></div>
   </div>
 </template>
 <script setup lang="ts">
-import yiButton from "./components/button/yi-button.vue"
-import yiInput from "./components/input/yi-input.vue"
+import fiButton from "./components/button/fi-button.vue"
+import fiInput from "./components/input/fi-input.vue"
 
 let name = "test"
 </script>

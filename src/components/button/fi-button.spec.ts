@@ -1,12 +1,12 @@
 import { shallowMount } from "@vue/test-utils"
 import { describe, test, expect } from "vitest"
-import YiButton from "./yi-button.vue"
+import FiButton from "./fi-button.vue"
 
-describe("yi-button", () => {
+describe("fi-button", () => {
   const buttonText = "Click me!"
 
   test("renders button with text", () => {
-    const wrapper = shallowMount(YiButton, {
+    const wrapper = shallowMount(FiButton, {
       slots: {
         default: () => buttonText,
       },
@@ -22,7 +22,7 @@ describe("yi-button", () => {
     ["tiny", "py-1 px-3 text-xs"],
     ["default", "py-2 px-4 text-sm"],
   ])("should render a button with size %s", (size, expectedClass) => {
-    const wrapper = shallowMount(YiButton, {
+    const wrapper = shallowMount(FiButton, {
       slots: {
         default: () => buttonText,
       },
@@ -40,7 +40,7 @@ describe("yi-button", () => {
     ["danger", "bg-red-600 hover:bg-red-500 ring-red-500"],
     ["success", "bg-green-600 hover:bg-green-500 ring-green-500"],
   ])("should render a button with color %s", (color, expectedClass) => {
-    const wrapper = shallowMount(YiButton, {
+    const wrapper = shallowMount(FiButton, {
       slots: {
         default: () => buttonText,
       },
