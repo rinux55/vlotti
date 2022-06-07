@@ -35,7 +35,7 @@ describe("yi-button", () => {
   })
 
   test.each([
-    ["primary", "bg-indigo-600 hover:bg-indigo-500 ring-indigo-500"],
+    ["primary", "bg-primary-600 hover:bg-primary-500 ring-primary-500"],
     ["warning", "bg-yellow-600 hover:bg-yellow-500 ring-yellow-500"],
     ["danger", "bg-red-600 hover:bg-red-500 ring-red-500"],
     ["success", "bg-green-600 hover:bg-green-500 ring-green-500"],

@@ -1,6 +1,8 @@
 import { defineConfig } from "windicss/helpers"
+import colors from "windicss/colors"
 
-const colors = [
+const safelistColors = [
+  "primary",
   "light",
   "dark",
   "red",
@@ -9,15 +11,14 @@ const colors = [
   "yellow",
   "violet",
   "indigo",
-  "neutral",
 ]
-const shades = ["50", "100", "200", "300", "400", "500", "600", "700"]
+const safelistShades = ["50", "100", "200", "300", "400", "500", "600", "700"]
 const safelist = []
 
 safelist.push(
-  colors
+  safelistColors
     .map((color) =>
-      shades.map(
+      safelistShades.map(
         (shade) =>
           `bg-${color}-${shade} border-${color}-${shade} hover:bg-${color}-${shade} hover:border-${color}-${shade} ring-${color}-${shade}`
       )
@@ -29,6 +30,9 @@ safelist.push(
 export default defineConfig({
   theme: {
     extend: {
+      colors: {
+        primary: colors.indigo,
+      },
       fontFamily: {
         sans: ["Inter"],
         body: ["Inter"],
