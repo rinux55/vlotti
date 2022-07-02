@@ -33,6 +33,7 @@ const value = computed({
 </script>
 <template>
   <input
+    data-test="input"
     class="rounded border-1 border-gray-300 shadow-sm transition duration-150 ring-primary-500 ring-opacity-30 focus:ring-3 focus:border-primary-400 focus-visible:outline-none"
     :class="computedClass"
     :placeholder="placeholder"
