@@ -27,12 +27,22 @@
       <fi-input large />
     </div>
     <div class="space-y-6 space-x-2"></div>
+    <h1 class="text-3xl pb-5">Table</h1>
+    <fi-table
+      :columns="[{ label: 'Fruit' }, { label: 'Color' }]"
+      :data="[
+        ['Apple', 'Red'],
+        ['Apple', 'Green'],
+        ['Banana', 'Yellow'],
+      ]"
+    ></fi-table>
   </div>
 </template>
 <script setup lang="ts">
 import { ref } from "vue"
 import fiButton from "./components/button/fi-button.vue"
 import fiInput from "./components/input/fi-input.vue"
+import fiTable from "./components/table/fi-table.vue"
 
 let name = ref("test")
 </script>
