@@ -36,6 +36,12 @@
         ['Banana', 'Yellow'],
       ]"
     ></fi-table>
+    <fi-dropdown>
+      <template #trigger>
+        <fi-button>Dropdown</fi-button>
+      </template>
+      <template #content> This is some content </template>
+    </fi-dropdown>
   </div>
 </template>
 <script setup lang="ts">
@@ -43,6 +49,7 @@ import { ref } from "vue"
 import fiButton from "./components/button/fi-button.vue"
 import fiInput from "./components/input/fi-input.vue"
 import fiTable from "./components/table/fi-table.vue"
+import fiDropdown from "./components/dropdown/fi-dropdown.vue"
 
 let name = ref("test")
 </script>
