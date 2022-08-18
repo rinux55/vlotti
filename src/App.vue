@@ -27,7 +27,14 @@
       <fi-input large />
     </div>
     <div class="space-y-6 space-x-2"></div>
-    <h1 class="text-3xl pb-5">Table</h1>
+    <h1 class="text-3xl pb-5 pt-5">Dropdown</h1>
+    <fi-dropdown>
+      <template #trigger>
+        <fi-button>Dropdown</fi-button>
+      </template>
+      <template #content> Dropdown Content </template>
+    </fi-dropdown>
+    <h1 class="text-3xl pb-5 pt-5">Table</h1>
     <fi-table
       :columns="[{ label: 'Fruit' }, { label: 'Color' }]"
       :data="[
@@ -36,12 +43,6 @@
         ['Banana', 'Yellow'],
       ]"
     ></fi-table>
-    <fi-dropdown>
-      <template #trigger>
-        <fi-button>Dropdown</fi-button>
-      </template>
-      <template #content> This is some content </template>
-    </fi-dropdown>
   </div>
 </template>
 <script setup lang="ts">
