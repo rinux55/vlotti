@@ -1,5 +1,5 @@
 import { shallowMount, VueWrapper } from "@vue/test-utils"
-import { describe, test, expect } from "vitest"
+import { vi, describe, test, expect } from "vitest"
 import FiDropdown from "./fi-dropdown.vue"
 
 describe("fi-dropdown", () => {
