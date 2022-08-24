@@ -35,7 +35,7 @@
       <template #content>
         <fi-list>
           <fi-list-item text="Item one" />
-          <fi-list-item text="Item two" />
+          <fi-list-item text="Item two" disabled />
         </fi-list>
       </template>
     </fi-dropdown>
