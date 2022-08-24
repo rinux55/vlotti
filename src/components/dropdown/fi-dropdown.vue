@@ -8,7 +8,11 @@ const contentVisible = ref(false)
 useCloseOnClickOutside(wrapper, contentVisible)
 </script>
 <template>
-  <div ref="wrapper" class="inline-block">
+  <div
+    ref="wrapper"
+    class="inline-block"
+    @keydown.escape="contentVisible = false"
+  >
     <a data-test="trigger-wrapper" @click="contentVisible = !contentVisible">
       <slot name="trigger"></slot>
     </a>
