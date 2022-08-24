@@ -1,24 +1,31 @@
 <script setup lang="ts">
-import { computed, type HTMLAttributes } from "vue"
+import type { Emitter } from "mitt"
+import type { ListEvents } from "@/events/list"
+import { computed, defineEmits, inject, type HTMLAttributes } from "vue"
 
 const props = defineProps<{
-  value: string | number | boolean
+  value?: string | number | boolean
   text: string
   disabled?: boolean
 }>()
 
-const computedClass = computed((): string => {
-  const classes = ["p-3"]
+const emit = defineEmits(["select"])
+const listEmitter: Emitter<ListEvents> = inject(
+  "listEmitter"
+) as Emitter<ListEvents>
+const dropdownEmitter: Emitter<ListEvents> = inject(
+  "dropdownEmitter"
+) as Emitter<ListEvents>
+
+function handleClick(): void {
   if (props.disabled) {
-    classes.push("text-gray-400 cursor-default")
-  } else {
-    classes.push(
-      "hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer"
-    )
+    return
   }
 
-  return classes.join(" ")
-})
+  listEmitter.emit("select", props.value as string | boolean | number)
+  dropdownEmitter.emit("select", props.value as string | boolean | number)
+  emit("select", props.value)
+}
 
 const computedAttrs = computed((): HTMLAttributes => {
   const attrs: HTMLAttributes = {}
@@ -31,6 +38,20 @@ const computedAttrs = computed((): HTMLAttributes => {
 
   return attrs
 })
+
+const computedClass = computed((): string => {
+  const classes = ["p-3"]
+
+  if (props.disabled) {
+    classes.push("text-gray-400 cursor-default")
+  } else {
+    classes.push(
+      "hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer"
+    )
+  }
+
+  return classes.join(" ")
+})
 </script>
 <template>
   <div
@@ -38,6 +59,7 @@ const computedAttrs = computed((): HTMLAttributes => {
     role="listitem"
     :class="computedClass"
     v-bind="computedAttrs"
+    @click="handleClick"
   >
     {{ text }}
   </div>
