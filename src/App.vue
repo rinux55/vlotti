@@ -32,7 +32,12 @@
       <template #trigger>
         <fi-button>Dropdown</fi-button>
       </template>
-      <template #content> <div>Dropdown Content</div> </template>
+      <template #content>
+        <fi-list>
+          <fi-list-item text="Item one" />
+          <fi-list-item text="Item two" />
+        </fi-list>
+      </template>
     </fi-dropdown>
     <h1 class="text-3xl pb-5 pt-5">Table</h1>
     <fi-table
@@ -51,6 +56,8 @@ import fiButton from "./components/button/fi-button.vue"
 import fiInput from "./components/input/fi-input.vue"
 import fiTable from "./components/table/fi-table.vue"
 import fiDropdown from "./components/dropdown/fi-dropdown.vue"
+import fiList from "./components/list/fi-list.vue"
+import fiListItem from "./components/list/fi-list-item.vue"
 
 let name = ref("test")
 </script>
