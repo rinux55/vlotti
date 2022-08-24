@@ -1,36 +1,22 @@
 <script setup lang="ts">
-import { ref, watch, onUnmounted } from "vue"
+import { ref } from "vue"
+import useCloseOnClickOutside from "@/composables/use-close-on-click-outside"
 
-let contentVisible = ref(false)
+const wrapper = ref<HTMLElement | null>(null)
+const contentVisible = ref(false)
 
-watch(contentVisible, () => {
-  window.addEventListener("click", closeOnClickOutside)
-})
-
-const content = ref<HTMLElement | null>(null)
-
-function closeOnClickOutside({ target }: MouseEvent | TouchEvent): void {
-  if (content.value?.contains(target as Node)) {
-    return
-  }
-
-  contentVisible.value = false
-  window.removeEventListener("click", closeOnClickOutside)
-}
-
-onUnmounted(() => {
-  window.removeEventListener("click", closeOnClickOutside)
-})
+useCloseOnClickOutside(wrapper, contentVisible)
 </script>
 <template>
-  <a data-test="trigger-wrapper" @click="contentVisible = !contentVisible">
-    <slot name="trigger"></slot>
-  </a>
-  <div
-    ref="content"
-    v-if="contentVisible"
-    class="bg-white border-1 border-gray-300 rounded shadow-xl absolute"
-  >
-    <slot name="content"></slot>
+  <div ref="wrapper" class="inline-block">
+    <a data-test="trigger-wrapper" @click="contentVisible = !contentVisible">
+      <slot name="trigger"></slot>
+    </a>
+    <div
+      v-if="contentVisible"
+      class="bg-white border-1 border-gray-300 rounded shadow-xl absolute"
+    >
+      <slot name="content"></slot>
+    </div>
   </div>
 </template>

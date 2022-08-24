@@ -32,7 +32,7 @@
       <template #trigger>
         <fi-button>Dropdown</fi-button>
       </template>
-      <template #content> Dropdown Content </template>
+      <template #content> <div>Dropdown Content</div> </template>
     </fi-dropdown>
     <h1 class="text-3xl pb-5 pt-5">Table</h1>
     <fi-table
