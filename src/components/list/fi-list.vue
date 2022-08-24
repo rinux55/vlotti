@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { provide, readonly } from "vue"
+import { provide } from "vue"
 import mitt, { type Emitter } from "mitt"
 import type { ListEvents } from "@/events/list"
 
-const props = defineProps<{
+defineProps<{
   modelValue?: string | number | boolean
 }>()
 
 const emit = defineEmits(["update:modelValue"])
-const emitter: Emitter<ListEvents> = mitt<ListEvents>()
+const listEmitter: Emitter<ListEvents> = mitt<ListEvents>()
 
-provide("listEmitter", emitter)
+provide("listEmitter", listEmitter)
 
-emitter.on("select", (value) => {
+listEmitter.on("select", (value) => {
   emit("update:modelValue", value)
 })
 </script>

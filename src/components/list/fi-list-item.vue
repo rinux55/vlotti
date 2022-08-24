@@ -10,20 +10,20 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(["select"])
-const listEmitter: Emitter<ListEvents> = inject(
-  "listEmitter"
-) as Emitter<ListEvents>
-const dropdownEmitter: Emitter<ListEvents> = inject(
-  "dropdownEmitter"
-) as Emitter<ListEvents>
+const emitters: Array<Emitter<ListEvents>> = [
+  inject("listEmitter") as Emitter<ListEvents>,
+  inject("dropdownEmitter") as Emitter<ListEvents>,
+]
 
 function handleClick(): void {
   if (props.disabled) {
     return
   }
 
-  listEmitter.emit("select", props.value as string | boolean | number)
-  dropdownEmitter.emit("select", props.value as string | boolean | number)
+  emitters.forEach((emitter) =>
+    emitter.emit("select", props.value as string | boolean | number)
+  )
+
   emit("select", props.value)
 }
 

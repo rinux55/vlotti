@@ -7,10 +7,10 @@ import useCloseOnClickOutside from "@/composables/use-close-on-click-outside"
 const wrapper = ref<HTMLElement | null>(null)
 const contentVisible = ref(false)
 
-const emitter: Emitter<ListEvents> = mitt<ListEvents>()
-provide("dropdownEmitter", emitter)
+const dropdownEmitter: Emitter<ListEvents> = mitt<ListEvents>()
+provide("dropdownEmitter", dropdownEmitter)
 
-emitter.on("select", () => {
+dropdownEmitter.on("select", () => {
   contentVisible.value = false
 })
 

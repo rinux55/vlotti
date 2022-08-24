@@ -11,7 +11,10 @@ describe("fi-dropdown", () => {
         trigger: () => h("a", { "data-test": "trigger" }, "Click me"),
         content: () =>
           h(FiList, { "data-test": "content" }, () => [
-            h(FiListItem, { "data-test": "item-1", text: "Item One" }),
+            h(FiListItem, {
+              "data-test": "item-1",
+              text: "Item One",
+            }),
             h(FiListItem, {
               "data-test": "item-2",
               text: "Item Two",
@@ -28,7 +31,7 @@ describe("fi-dropdown", () => {
     wrapper.get("[data-test=trigger]").should("be.visible")
   })
 
-  it("should not display the dropdown content", () => {
+  it("should not display the dropdown content by default", () => {
     const wrapper = createWrapper()
 
     wrapper.get("[data-test=content]").should("not.be.visible")
