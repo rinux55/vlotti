@@ -27,7 +27,14 @@
       <fi-input large />
     </div>
     <div class="space-y-6 space-x-2"></div>
-    <h1 class="text-3xl pb-5">Table</h1>
+    <h1 class="text-3xl pb-5 pt-5">Dropdown</h1>
+    <fi-dropdown>
+      <template #trigger>
+        <fi-button>Dropdown</fi-button>
+      </template>
+      <template #content> Dropdown Content </template>
+    </fi-dropdown>
+    <h1 class="text-3xl pb-5 pt-5">Table</h1>
     <fi-table
       :columns="[{ label: 'Fruit' }, { label: 'Color' }]"
       :data="[
@@ -43,6 +50,7 @@ import { ref } from "vue"
 import fiButton from "./components/button/fi-button.vue"
 import fiInput from "./components/input/fi-input.vue"
 import fiTable from "./components/table/fi-table.vue"
+import fiDropdown from "./components/dropdown/fi-dropdown.vue"
 
 let name = ref("test")
 </script>

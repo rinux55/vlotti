@@ -7,7 +7,7 @@
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
     "cy:run": "cypress run --component",
-    "cy:watch": "cypress run --component --config watchForFileChanges=true",
+    "cy:open": "cypress open",
     "story:dev": "histoire dev",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
