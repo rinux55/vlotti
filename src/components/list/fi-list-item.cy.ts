@@ -40,23 +40,35 @@ describe("fi-list-item", () => {
       .should("not.have.class", activeClass)
   })
 
-  it("should have a tabindex 1 when the list item is not disabled", () => {
-    createWrapper({
-      props: {
-        disabled: true,
-      },
-    })
+  it("should have a tabindex when the list item is not disabled", () => {
+    createWrapper()
       .get("[data-test=list-item]")
-      .should("have.attr", "tabindex", "-1")
+      .should("have.attr", "tabindex", "0")
   })
 
-  it("should have a tabindex of -1 when the list item is disabled", () => {
+  it("should not have a tabindex when the list item is disabled", () => {
     createWrapper({
       props: {
         disabled: true,
       },
     })
       .get("[data-test=list-item]")
-      .should("have.attr", "tabindex", "-1")
+      .should("not.have.attr", "tabindex")
+  })
+
+  it("should not have the attribute aria-disabled when the item is not disabled", () => {
+    createWrapper()
+      .get("[data-test=list-item]")
+      .should("not.have.attr", "aria-disabled")
+  })
+
+  it("should have the attribute aria-disabled when the item is disabled", () => {
+    createWrapper({
+      props: {
+        disabled: true,
+      },
+    })
+      .get("[data-test=list-item]")
+      .should("have.attr", "aria-disabled", "true")
   })
 })

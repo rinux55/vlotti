@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed } from "vue"
+import { computed, type HTMLAttributes } from "vue"
 
 const props = defineProps<{
+  value: string | number | boolean
   text: string
   disabled?: boolean
 }>()
@@ -19,16 +20,24 @@ const computedClass = computed((): string => {
   return classes.join(" ")
 })
 
-const computedTabindex = computed((): string => {
-  return props.disabled ? "-1" : "0"
+const computedAttrs = computed((): HTMLAttributes => {
+  const attrs: HTMLAttributes = {}
+
+  if (props.disabled) {
+    attrs["aria-disabled"] = "true"
+  } else {
+    attrs["tabindex"] = "0"
+  }
+
+  return attrs
 })
 </script>
 <template>
   <div
     data-test="list-item"
     role="listitem"
-    :tabindex="computedTabindex"
     :class="computedClass"
+    v-bind="computedAttrs"
   >
     {{ text }}
   </div>
