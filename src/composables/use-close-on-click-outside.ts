@@ -8,7 +8,7 @@ import { onMounted, onUnmounted, type Ref } from "vue"
 export default function useCloseOnClickOutside(
   elementRef: Ref<HTMLElement | null>,
   contentVisibleRef: Ref<boolean>
-) {
+): void {
   onMounted(() => {
     window.addEventListener("mouseup", tryClose)
   })
@@ -25,6 +25,4 @@ export default function useCloseOnClickOutside(
       contentVisibleRef.value = false
     }
   }
-
-  return { contentVisible: contentVisibleRef }
 }
