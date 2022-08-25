@@ -33,12 +33,14 @@
         <fi-button>Dropdown</fi-button>
       </template>
       <template #content>
-        <fi-list>
-          <fi-list-item text="Item one" />
-          <fi-list-item text="Item two" />
+        <fi-list v-model="selectedListItem">
+          <fi-list-item text="Item one" value="1" />
+          <fi-list-item text="Item two" value="2" />
+          <fi-list-item text="Item three" value="3" disabled />
         </fi-list>
       </template>
     </fi-dropdown>
+    {{ selectedListItem }}
     <h1 class="text-3xl pb-5 pt-5">Table</h1>
     <fi-table
       :columns="[{ label: 'Fruit' }, { label: 'Color' }]"
@@ -60,6 +62,7 @@ import fiList from "./components/list/fi-list.vue"
 import fiListItem from "./components/list/fi-list-item.vue"
 
 let name = ref("test")
+let selectedListItem = ref("1")
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
