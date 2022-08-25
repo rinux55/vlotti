@@ -20,8 +20,8 @@ function handleClick(): void {
     return
   }
 
-  emitters.forEach((emitter) =>
-    emitter.emit("select", props.value as string | boolean | number)
+  emitters.forEach(({ emit }) =>
+    emit("select", props.value as string | boolean | number)
   )
 
   emit("select", props.value)
