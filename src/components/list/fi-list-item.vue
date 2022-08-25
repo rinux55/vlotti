@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Emitter } from "mitt"
-import type { ListEvents } from "@/events/list"
+import type { ListEvents } from "@/types/events"
 import { computed, defineEmits, inject, type HTMLAttributes } from "vue"
 
 const props = defineProps<{

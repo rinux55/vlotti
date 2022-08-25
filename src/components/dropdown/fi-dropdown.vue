@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, provide } from "vue"
 import mitt, { type Emitter } from "mitt"
-import type { ListEvents } from "@/events/list"
+import type { ListEvents } from "@/types/events"
 import useCloseOnClickOutside from "@/composables/use-close-on-click-outside"
 
 const wrapper = ref<HTMLElement | null>(null)

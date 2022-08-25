@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { provide } from "vue"
 import mitt, { type Emitter } from "mitt"
-import type { ListEvents } from "@/events/list"
+import type { ListEvents } from "@/types/events"
 
 defineProps<{
   modelValue?: string | number | boolean
