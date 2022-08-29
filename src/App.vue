@@ -24,7 +24,7 @@
     <div class="space-y-6 space-x-2">
       <fi-button primary large>Large button</fi-button>
       <fi-button large>Large button</fi-button>
-      <fi-input large />
+      <fi-input large disabled v-model="name" />
     </div>
     <div class="space-y-6 space-x-2"></div>
     <h1 class="text-3xl pb-5 pt-5">Dropdown</h1>
