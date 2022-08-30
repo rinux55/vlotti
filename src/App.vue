@@ -63,7 +63,6 @@ import fiDropdown from "./components/dropdown/fi-dropdown.vue"
 import fiList from "./components/list/fi-list.vue"
 import fiListItem from "./components/list/fi-list-item.vue"
 import fiIcon from "./components/icon/fi-icon.vue"
-import FiIcon from "./components/icon/fi-icon.vue"
 
 let name = ref("test")
 let selectedListItem = ref("1")
