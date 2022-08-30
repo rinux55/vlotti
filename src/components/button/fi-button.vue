@@ -2,6 +2,7 @@
 import { computed, defineProps } from "vue"
 import { useColor } from "@/composables/use-color"
 import { useSize } from "@/composables/use-size"
+import FiIcon from "../icon/fi-icon.vue"
 
 const props = defineProps<{
   primary?: boolean
@@ -12,6 +13,8 @@ const props = defineProps<{
   medium?: boolean
   small?: boolean
   tiny?: boolean
+  icon?: string
+  iconRight?: string
 }>()
 
 const color = useColor(props)
@@ -45,6 +48,9 @@ const computedClass = computed((): string => {
     class="font-medium rounded border-1 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none"
     :class="computedClass"
   >
-    <slot />
+    <span>
+      <fi-icon class="pr-2" data-test="icon" :icon="icon" v-if="icon" />
+      <slot />
+    </span>
   </button>
 </template>

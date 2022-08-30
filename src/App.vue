@@ -2,7 +2,7 @@
   <div class="p-30">
     <h1 class="text-3xl pb-5">My App {{ name }}</h1>
     <div class="space-y-6 space-x-2">
-      <fi-button primary tiny>Tiny button</fi-button>
+      <fi-button icon="fa-coffee" primary tiny>Tiny button</fi-button>
       <fi-button tiny>Tiny button</fi-button>
       <fi-input tiny />
     </div>
@@ -13,7 +13,7 @@
     </div>
     <div class="space-y-6 space-x-2">
       <fi-button primary>Default button</fi-button>
-      <fi-button>Default button</fi-button>
+      <fi-button icon="fa-coffee">Default button</fi-button>
       <fi-input v-model="name" placeholder="Enter app name" />
     </div>
     <div class="space-y-6 space-x-2">
@@ -50,6 +50,8 @@
         ['Banana', 'Yellow'],
       ]"
     ></fi-table>
+    <h1 class="text-3xl pb-5 pt-5">Icon</h1>
+    <fi-icon icon="fa-coffee" />
   </div>
 </template>
 <script setup lang="ts">
@@ -60,6 +62,7 @@ import fiTable from "./components/table/fi-table.vue"
 import fiDropdown from "./components/dropdown/fi-dropdown.vue"
 import fiList from "./components/list/fi-list.vue"
 import fiListItem from "./components/list/fi-list-item.vue"
+import fiIcon from "./components/icon/fi-icon.vue"
 
 let name = ref("test")
 let selectedListItem = ref("1")

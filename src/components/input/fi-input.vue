@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs, type InputHTMLAttributes } from "vue"
+import { computed, type InputHTMLAttributes } from "vue"
 import { useSize } from "@/composables/use-size"
 
 const props = defineProps<{
@@ -35,7 +35,7 @@ const computedAttrs = computed((): InputHTMLAttributes => {
   const attrs: InputHTMLAttributes = {}
 
   if (props.disabled) {
-    attrs.disabled = "true"
+    attrs.disabled = true
   }
 
   if (props.placeholder) {
