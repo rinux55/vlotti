@@ -48,9 +48,9 @@ const computedClass = computed((): string => {
     class="font-medium rounded border-1 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none"
     :class="computedClass"
   >
-    <div>
+    <span>
       <fi-icon class="pr-2" data-test="icon" :icon="icon" v-if="icon" />
       <slot />
-    </div>
+    </span>
   </button>
 </template>
