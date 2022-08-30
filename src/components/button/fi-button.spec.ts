@@ -1,18 +1,45 @@
-import { shallowMount } from "@vue/test-utils"
+import { shallowMount, VueWrapper } from "@vue/test-utils"
 import { describe, test, expect } from "vitest"
 import FiButton from "./fi-button.vue"
 
 describe("fi-button", () => {
   const buttonText = "Click me!"
 
+  function createWrapper({ props = {} } = {}) {
+    return shallowMount(FiButton, {
+      slots: {
+        default: () => buttonText,
+      },
+      props,
+    })
+  }
+
   test("renders a button with text", () => {
+    const wrapper = createWrapper()
+
+    expect(wrapper.text()).toBe(buttonText)
+  })
+
+  test("renders a button with an icon", () => {
     const wrapper = shallowMount(FiButton, {
       slots: {
         default: () => buttonText,
       },
+      props: {
+        icon: "fa-coffee",
+      },
     })
 
-    expect(wrapper.text()).toBe(buttonText)
+    const icon = wrapper.getComponent("[data-test=icon]") as VueWrapper
+
+    expect(icon.isVisible()).toBe(true)
+    expect(icon.props("icon")).toBe("fa-coffee")
+  })
+
+  test("doesn't render an icon when the icon prop is not passed", () => {
+    const wrapper = shallowMount(FiButton)
+
+    expect(wrapper.findComponent("[data-test=icon]").exists()).toBe(false)
   })
 
   test.each([
@@ -22,10 +49,7 @@ describe("fi-button", () => {
     ["tiny", "py-1 px-3 text-xs"],
     ["default", "py-2 px-4 text-sm"],
   ])("renders a button with size %s", (size, expectedClass) => {
-    const wrapper = shallowMount(FiButton, {
-      slots: {
-        default: () => buttonText,
-      },
+    const wrapper = createWrapper({
       props: { [size]: true },
     })
 
@@ -38,10 +62,7 @@ describe("fi-button", () => {
     ["danger", "bg-red-600 hover:bg-red-500 ring-red-500"],
     ["success", "bg-green-600 hover:bg-green-500 ring-green-500"],
   ])("renders a button with color %s", (color, expectedClass) => {
-    const wrapper = shallowMount(FiButton, {
-      slots: {
-        default: () => buttonText,
-      },
+    const wrapper = createWrapper({
       props: { [color]: true },
     })
 
