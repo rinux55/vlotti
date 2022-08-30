@@ -50,6 +50,8 @@
         ['Banana', 'Yellow'],
       ]"
     ></fi-table>
+    <h1 class="text-3xl pb-5 pt-5">Icon</h1>
+    <fi-icon icon="fa-coffee" />
   </div>
 </template>
 <script setup lang="ts">
@@ -60,6 +62,8 @@ import fiTable from "./components/table/fi-table.vue"
 import fiDropdown from "./components/dropdown/fi-dropdown.vue"
 import fiList from "./components/list/fi-list.vue"
 import fiListItem from "./components/list/fi-list-item.vue"
+import fiIcon from "./components/icon/fi-icon.vue"
+import FiIcon from "./components/icon/fi-icon.vue"
 
 let name = ref("test")
 let selectedListItem = ref("1")
