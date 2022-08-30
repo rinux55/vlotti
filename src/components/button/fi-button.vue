@@ -28,7 +28,7 @@ const computedClass = computed((): string => {
     )
   } else {
     classes.push(
-      "text-gray-700 border-gray-300 bg-white " +
+      "text-gray-700 bg-gray-50 border-gray-400 bg-white " +
         "hover:border-gray-400 hover:text-gray-900 " +
         "focus:border-primary-400 ring-primary-500 "
     )
@@ -42,7 +42,7 @@ const computedClass = computed((): string => {
 
 <template>
   <button
-    class="font-medium rounded border-1 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none"
+    class="font-medium rounded border-1 border-opacity-50 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none"
     :class="computedClass"
   >
     <slot />

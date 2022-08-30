@@ -68,3 +68,8 @@ let selectedListItem = ref("1")
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Rubik:wght@400;500&display=swap");
 </style>
+<style>
+body {
+  background: #eee;
+}
+</style>
