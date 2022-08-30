@@ -34,9 +34,9 @@
       </template>
       <template #content>
         <fi-list v-model="selectedListItem">
-          <fi-list-item text="Item one" value="1" />
-          <fi-list-item text="Item two" value="2" />
-          <fi-list-item text="Item three" value="3" disabled />
+          <fi-list-item label="Item one" value="1" />
+          <fi-list-item label="Item two" value="2" />
+          <fi-list-item label="Item three" value="3" disabled />
         </fi-list>
       </template>
     </fi-dropdown>

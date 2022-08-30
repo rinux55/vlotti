@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { Emitter } from "mitt"
-import type { ListEvents } from "@/types/events"
+import type { ListEvents } from "@/types/list"
 import { computed, defineEmits, inject, type HTMLAttributes } from "vue"
 
 const props = defineProps<{
   value?: string | number | boolean
-  text: string
+  label: string
   disabled?: boolean
 }>()
 
@@ -61,6 +61,6 @@ const computedClass = computed((): string => {
     v-bind="computedAttrs"
     @click="handleClick"
   >
-    {{ text }}
+    {{ label }}
   </div>
 </template>

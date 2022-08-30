@@ -13,11 +13,11 @@ describe("fi-dropdown", () => {
           h(FiList, { "data-test": "content" }, () => [
             h(FiListItem, {
               "data-test": "item-1",
-              text: "Item One",
+              label: "Item One",
             }),
             h(FiListItem, {
               "data-test": "item-2",
-              text: "Item Two",
+              label: "Item Two",
               disabled: true,
             }),
           ]),
