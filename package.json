@@ -6,7 +6,7 @@
     "build": "run-p type-check build-only",
     "preview": "vite preview --port 4173",
     "test:unit": "vitest --environment jsdom",
-    "cy:run": "cypress run --component",
+    "test:component": "cypress run --component",
     "cy:open": "cypress open",
     "story:dev": "histoire dev",
     "build-only": "vite build",
