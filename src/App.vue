@@ -2,7 +2,7 @@
   <div class="p-30">
     <h1 class="text-3xl pb-5">My App {{ name }}</h1>
     <div class="space-y-6 space-x-2">
-      <fi-button primary tiny>Tiny button</fi-button>
+      <fi-button icon="fa-coffee" primary tiny>Tiny button</fi-button>
       <fi-button tiny>Tiny button</fi-button>
       <fi-input tiny />
     </div>
@@ -13,7 +13,7 @@
     </div>
     <div class="space-y-6 space-x-2">
       <fi-button primary>Default button</fi-button>
-      <fi-button>Default button</fi-button>
+      <fi-button icon="fa-coffee">Default button</fi-button>
       <fi-input v-model="name" placeholder="Enter app name" />
     </div>
     <div class="space-y-6 space-x-2">

@@ -1,10 +1,10 @@
-import { mount, shallowMount } from "@vue/test-utils"
+import { shallowMount } from "@vue/test-utils"
 import { describe, test, expect } from "vitest"
 import FiIcon from "./fi-icon.vue"
 
 describe("fi-icon", () => {
   function createWrapper({ props = {} } = {}) {
-    return mount(FiIcon, {
+    return shallowMount(FiIcon, {
       props,
     })
   }
