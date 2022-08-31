@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { provide } from "vue"
 import mitt, { type Emitter } from "mitt"
-import type { ListEvents } from "@/types/list"
+import type { ListEvents, ListItem } from "@/types/list"
 
 defineProps<{
-  modelValue?: string | number | boolean
+  modelValue?: ListItem
 }>()
 
 const emit = defineEmits(["update:modelValue"])

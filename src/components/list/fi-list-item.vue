@@ -1,10 +1,16 @@
 <script setup lang="ts">
 import type { Emitter } from "mitt"
-import type { ListEvents } from "@/types/list"
-import { computed, defineEmits, inject, type HTMLAttributes } from "vue"
+import type { ListEvents, ListItem, ListItemValue } from "@/types/list"
+import {
+  computed,
+  defineEmits,
+  inject,
+  readonly,
+  type HTMLAttributes,
+} from "vue"
 
 const props = defineProps<{
-  value?: string | number | boolean
+  value?: ListItemValue
   label: string
   disabled?: boolean
 }>()
@@ -20,11 +26,11 @@ function handleClick(): void {
     return
   }
 
-  emitters.forEach(({ emit }) =>
-    emit("select", props.value as string | boolean | number)
-  )
+  const item: ListItem = readonly(props)
 
-  emit("select", props.value)
+  emitters.forEach(({ emit }) => emit("select", item))
+
+  emit("select", item)
 }
 
 const computedAttrs = computed((): HTMLAttributes => {

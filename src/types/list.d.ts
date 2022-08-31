@@ -1,8 +1,11 @@
-export type ListEvents = {
-  select: string | boolean | number
+export type ListItem = {
+  value?: ListItemValue
+  label: string
+  disabled?: boolean
 }
 
-export type ListItem = {
-  value: string | boolean | number
-  label: string
+export type ListItemValue = string | boolean | number | undefined
+
+export type ListEvents = {
+  select: ListItem
 }

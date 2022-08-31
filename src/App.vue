@@ -33,14 +33,16 @@
         <fi-button>Dropdown</fi-button>
       </template>
       <template #content>
-        <fi-list v-model="selectedListItem">
+        <fi-list v-model="selectedDropdownItem">
           <fi-list-item label="Item one" value="1" />
           <fi-list-item label="Item two" value="2" />
           <fi-list-item label="Item three" value="3" disabled />
         </fi-list>
       </template>
     </fi-dropdown>
-    {{ selectedListItem }}
+    Selected Item: {{ selectedDropdownItem }}
+    <h1 class="text-3xl pb-5 pt-5">Select</h1>
+    <fi-select :items="listItems" />
     <h1 class="text-3xl pb-5 pt-5">Table</h1>
     <fi-table
       :columns="[{ label: 'Fruit' }, { label: 'Color' }]"
@@ -55,7 +57,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, type Ref } from "vue"
 import fiButton from "./components/button/fi-button.vue"
 import fiInput from "./components/input/fi-input.vue"
 import fiTable from "./components/table/fi-table.vue"
@@ -63,9 +65,25 @@ import fiDropdown from "./components/dropdown/fi-dropdown.vue"
 import fiList from "./components/list/fi-list.vue"
 import fiListItem from "./components/list/fi-list-item.vue"
 import fiIcon from "./components/icon/fi-icon.vue"
+import fiSelect from "./components/select/fi-select.vue"
+import type { ListItem } from "./types/list"
 
 let name = ref("test")
-let selectedListItem = ref("1")
+let listItems: Ref<Array<ListItem>> = ref([
+  {
+    label: "Apple",
+    value: 1,
+  },
+  {
+    label: "Banana",
+    value: 2,
+  },
+  {
+    label: "Pear",
+    value: 3,
+  },
+])
+let selectedDropdownItem = ref(listItems.value[0])
 </script>
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap");
