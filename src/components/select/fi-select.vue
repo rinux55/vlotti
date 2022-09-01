@@ -7,15 +7,13 @@ import FiInput from "@/components/input/fi-input.vue"
 import { computed } from "vue"
 
 const props = defineProps<{
-  value?: ListItem
+  modelValue?: ListItem
   items: Array<ListItem>
 }>()
 
-const selectedItem = computed((): ListItem | void => {
-  return props.value
-})
+const emit = defineEmits(["update:modelValue"])
 const selectedItemLabel = computed((): string => {
-  return selectedItem.value ? selectedItem.value.label : ""
+  return props.modelValue?.label || ""
 })
 </script>
 <template>
@@ -25,12 +23,15 @@ const selectedItemLabel = computed((): string => {
         data-test="input"
         v-model="selectedItemLabel"
         readonly
-        value="Apple"
         Placeholder="select an item"
       />
     </template>
     <template #content>
-      <fi-list data-test="list">
+      <fi-list
+        data-test="list"
+        @update:model-value="emit('update:modelValue', $event)"
+        :model-value="modelValue"
+      >
         <fi-list-item
           data-test="list-item"
           v-for="item in items"

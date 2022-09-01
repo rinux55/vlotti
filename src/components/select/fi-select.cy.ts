@@ -1,10 +1,11 @@
 import { mount } from "cypress/vue"
 import FiSelect from "./fi-select.vue"
-
+import { ref } from "vue"
 describe("fi-select", () => {
   function createWrapper() {
     return mount(FiSelect, {
       props: {
+        modelValue: ref(),
         items: [
           {
             value: "apple",
