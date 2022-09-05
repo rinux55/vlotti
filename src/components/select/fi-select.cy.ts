@@ -1,11 +1,9 @@
 import { mount } from "cypress/vue"
 import FiSelect from "./fi-select.vue"
-import { ref } from "vue"
 describe("fi-select", () => {
-  function createWrapper() {
+  function createWrapper({ props = {} } = {}) {
     return mount(FiSelect, {
       props: {
-        modelValue: ref(),
         items: [
           {
             value: "apple",
@@ -21,6 +19,7 @@ describe("fi-select", () => {
           },
         ],
       },
+      ...props,
     })
   }
 
@@ -51,6 +50,6 @@ describe("fi-select", () => {
     wrapper.get("[data-test=input]").click()
     wrapper.get("[data-test=list-item]").first().click()
 
-    wrapper.get("[data-test=input]").should("have.text", "Apple")
+    wrapper.get("[data-test=input]").should("have.value", "Apple")
   })
 })

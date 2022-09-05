@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { ListItem, ListItemValue } from "@/types/list.d"
+import type { ListItem } from "@/types/list.d"
 import FiDropdown from "@/components/dropdown/fi-dropdown.vue"
 import FiList from "@/components/list/fi-list.vue"
 import FiListItem from "@/components/list/fi-list-item.vue"
 import FiInput from "@/components/input/fi-input.vue"
-import { computed } from "vue"
+import { computed, ref } from "vue"
 
 const props = defineProps<{
   modelValue?: ListItem
@@ -13,8 +13,18 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:modelValue"])
 const selectedItemLabel = computed((): string => {
-  return props.modelValue?.label || ""
+  if (props.modelValue) {
+    return props.modelValue?.label || ""
+  } else {
+    return internalModel.value?.label || ""
+  }
 })
+const internalModel = ref(props.modelValue)
+
+function handleModelValueUpdate(value: ListItem): void {
+  emit("update:modelValue", value)
+  internalModel.value = value
+}
 </script>
 <template>
   <fi-dropdown>
@@ -29,7 +39,7 @@ const selectedItemLabel = computed((): string => {
     <template #content>
       <fi-list
         data-test="list"
-        @update:model-value="emit('update:modelValue', $event)"
+        @update:model-value="handleModelValueUpdate($event)"
         :model-value="modelValue"
       >
         <fi-list-item

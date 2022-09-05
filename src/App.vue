@@ -43,7 +43,11 @@
     Selected Item: {{ selectedDropdownItem }}
     <h1 class="text-3xl pb-5 pt-5">Select</h1>
     <fi-select :items="listItems" />
+    <fi-button @click="selectedListItem = listItems[1]"
+      >Select Banana</fi-button
+    >
     <h1 class="text-3xl pb-5 pt-5">Table</h1>
+
     <fi-table
       :columns="[{ label: 'Fruit' }, { label: 'Color' }]"
       :data="[
