@@ -4,7 +4,7 @@ import FiDropdown from "@/components/dropdown/fi-dropdown.vue"
 import FiList from "@/components/list/fi-list.vue"
 import FiListItem from "@/components/list/fi-list-item.vue"
 import FiInput from "@/components/input/fi-input.vue"
-import { computed, ref } from "vue"
+import { computed, ref, watch } from "vue"
 
 const props = defineProps<{
   modelValue?: ListItem
@@ -12,19 +12,27 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits(["update:modelValue"])
-const selectedItemLabel = computed((): string => {
-  if (props.modelValue) {
-    return props.modelValue?.label || ""
-  } else {
-    return internalModel.value?.label || ""
-  }
-})
-const internalModel = ref(props.modelValue)
 
-function handleModelValueUpdate(value: ListItem): void {
-  emit("update:modelValue", value)
-  internalModel.value = value
+const selectedItem = ref(props.modelValue)
+const selectedItemLabel = computed((): string => {
+  return selectedItem.value?.label || ""
+})
+
+function updateSelectedListItem(listItem: ListItem): void {
+  emit("update:modelValue", listItem)
+
+  // only update the selected item internally when no v-model has been bound
+  if (!props.modelValue) {
+    selectedItem.value = listItem
+  }
 }
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    selectedItem.value = value
+  }
+)
 </script>
 <template>
   <fi-dropdown>
@@ -39,8 +47,8 @@ function handleModelValueUpdate(value: ListItem): void {
     <template #content>
       <fi-list
         data-test="list"
-        @update:model-value="handleModelValueUpdate($event)"
-        :model-value="modelValue"
+        @update:model-value="updateSelectedListItem($event)"
+        :model-value="selectedItem"
       >
         <fi-list-item
           data-test="list-item"
