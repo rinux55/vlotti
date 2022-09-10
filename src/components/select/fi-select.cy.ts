@@ -52,4 +52,22 @@ describe("fi-select", () => {
 
     wrapper.get("[data-test=input]").should("have.value", "Apple")
   })
+
+  it("should highlight the selected list item in the list", () => {
+    const wrapper = createWrapper()
+
+    wrapper.get("[data-test=input]").click()
+    wrapper.get("[data-test=list-item]").first().click()
+    wrapper.get("[data-test=input]").click()
+
+    wrapper
+      .get("[data-test=list-item]")
+      .first()
+      .should("have.class", "bg-primary-50 text-primary-500")
+
+    wrapper
+      .get("[data-test=list-item]")
+      .eq(1)
+      .should("not.have.class", "bg-primary-50 text-primary-500")
+  })
 })

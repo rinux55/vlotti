@@ -6,6 +6,7 @@ import {
   defineEmits,
   inject,
   readonly,
+  type ComputedRef,
   type HTMLAttributes,
 } from "vue"
 
@@ -15,6 +16,7 @@ const props = defineProps<{
   disabled?: boolean
 }>()
 
+const selectedListItem = inject("selectedListItem") as ComputedRef<ListItem>
 const emit = defineEmits(["select"])
 const emitters: Array<Emitter<ListEvents>> = [
   inject("listEmitter") as Emitter<ListEvents>,
@@ -47,6 +49,10 @@ const computedAttrs = computed((): HTMLAttributes => {
 
 const computedClass = computed((): string => {
   const classes = ["p-3"]
+
+  if (selectedListItem.value?.value === props.value) {
+    classes.push("bg-primary-50 text-primary-500")
+  }
 
   if (props.disabled) {
     classes.push("text-gray-400 cursor-default")
