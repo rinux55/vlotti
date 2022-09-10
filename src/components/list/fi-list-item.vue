@@ -1,14 +1,24 @@
 <script setup lang="ts">
 import type { Emitter } from "mitt"
-import type { ListEvents } from "@/types/events"
-import { computed, defineEmits, inject, type HTMLAttributes } from "vue"
+import type { ListEvents, ListItem, ListItemValue } from "@/types/list"
+import {
+  computed,
+  defineEmits,
+  inject,
+  readonly,
+  type ComputedRef,
+  type HTMLAttributes,
+} from "vue"
 
 const props = defineProps<{
-  value?: string | number | boolean
-  text: string
+  value?: ListItemValue
+  label: string
   disabled?: boolean
 }>()
 
+const selectedListItem = inject("selectedListItem") as
+  | ComputedRef<ListItem>
+  | undefined
 const emit = defineEmits(["select"])
 const emitters: Array<Emitter<ListEvents>> = [
   inject("listEmitter") as Emitter<ListEvents>,
@@ -20,11 +30,11 @@ function handleClick(): void {
     return
   }
 
-  emitters.forEach(({ emit }) =>
-    emit("select", props.value as string | boolean | number)
-  )
+  const item: ListItem = readonly(props)
 
-  emit("select", props.value)
+  emitters.forEach(({ emit }) => emit("select", item))
+
+  emit("select", item)
 }
 
 const computedAttrs = computed((): HTMLAttributes => {
@@ -41,6 +51,10 @@ const computedAttrs = computed((): HTMLAttributes => {
 
 const computedClass = computed((): string => {
   const classes = ["p-3"]
+
+  if (selectedListItem?.value?.value === props.value) {
+    classes.push("bg-primary-50 text-primary-500")
+  }
 
   if (props.disabled) {
     classes.push("text-gray-400 cursor-default")
@@ -61,6 +75,6 @@ const computedClass = computed((): string => {
     v-bind="computedAttrs"
     @click="handleClick"
   >
-    {{ text }}
+    {{ label }}
   </div>
 </template>

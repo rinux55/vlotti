@@ -5,7 +5,7 @@ describe("fi-list-item", () => {
   function createWrapper({ props = {} } = {}) {
     return mount(FiListItem, {
       props: {
-        text: "List Item",
+        label: "List Item",
         ...props,
       },
     })
@@ -16,7 +16,7 @@ describe("fi-list-item", () => {
 
   const disabledClass = "text-gray-400 cursor-default"
 
-  it("should render the list item text", () => {
+  it("should render the list item label", () => {
     const wrapper = createWrapper()
 
     wrapper.get("[data-test=list-item]").contains("List Item")
