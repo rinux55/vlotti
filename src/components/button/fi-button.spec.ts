@@ -42,19 +42,16 @@ describe("fi-button", () => {
     expect(wrapper.findComponent("[data-test=icon]").exists()).toBe(false)
   })
 
-  test.each([
-    ["large", "py-3 px-6 text-lg"],
-    ["medium", "py-2 px-5"],
-    ["small", "py-1 px-3 text-sm"],
-    ["tiny", "py-1 px-3 text-xs"],
-    ["default", "py-2 px-4 text-sm"],
-  ])("renders a button with size %s", (size, expectedClass) => {
-    const wrapper = createWrapper({
-      props: { [size]: true },
-    })
+  test.each(["large", "small", "tiny"])(
+    "renders a button with size %s",
+    (size) => {
+      const wrapper = createWrapper({
+        props: { size },
+      })
 
-    expect(wrapper.attributes("class")).toContain(expectedClass)
-  })
+      expect(wrapper.attributes("class")).toContain(size)
+    }
+  )
 
   test.each([
     ["primary", "bg-primary-600 hover:bg-primary-500 ring-primary-500"],

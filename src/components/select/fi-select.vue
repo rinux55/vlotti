@@ -6,10 +6,13 @@ import FiListItem from "@/components/list/fi-list-item.vue"
 import FiInput from "@/components/input/fi-input.vue"
 import FiIcon from "@/components/icon/fi-icon.vue"
 import { computed, ref, watch } from "vue"
+import type { Size } from "@/types/size"
 
 const props = defineProps<{
   modelValue?: ListItem
   items: Array<ListItem>
+  size?: Size
+  disabled?: boolean
 }>()
 
 const emit = defineEmits(["update:modelValue"])
@@ -17,6 +20,14 @@ const emit = defineEmits(["update:modelValue"])
 const selectedItem = ref(props.modelValue)
 const selectedItemLabel = computed((): string => {
   return selectedItem.value?.label || ""
+})
+
+const computedClass = computed((): string => {
+  if (props.disabled) {
+    return "disabled"
+  }
+
+  return ""
 })
 
 function updateSelectedListItem(listItem: ListItem): void {
@@ -36,15 +47,29 @@ watch(
 )
 </script>
 <template>
-  <fi-dropdown>
-    <template #trigger>
-      <fi-input
-        data-test="input"
-        v-model="selectedItemLabel"
-        readonly
-        Placeholder="select an item"
-      />
-      <fi-icon icon="chevron-down" />
+  <fi-dropdown
+    data-test="select"
+    class="select"
+    :class="computedClass"
+    :disabled="disabled"
+  >
+    <template #trigger="{ active }">
+      <div
+        data-test="input-wrapper"
+        class="input-wrapper relative"
+        :class="{ active }"
+      >
+        <fi-input
+          class="input"
+          data-test="input"
+          v-model="selectedItemLabel"
+          readonly
+          :size="size"
+          :disabled="disabled"
+          Placeholder="select an item"
+        />
+        <fi-icon icon="fa-chevron-down" class="icon" />
+      </div>
     </template>
     <template #content>
       <fi-list
@@ -64,3 +89,28 @@ watch(
     </template>
   </fi-dropdown>
 </template>
+<style scoped>
+.input {
+  @apply pr-8 cursor-pointer;
+}
+
+.icon {
+  @apply absolute right-3 bottom-0 top-0 m-auto text-gray-300 h-1/3;
+}
+
+.input-wrapper.active .icon {
+  @apply !text-primary-500;
+}
+
+.select:hover .icon {
+  @apply text-gray-400;
+}
+
+.select.disabled .input {
+  @apply !cursor-default;
+}
+
+.select.disabled .icon {
+  @apply !text-gray-300;
+}
+</style>

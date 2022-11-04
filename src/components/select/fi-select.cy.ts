@@ -16,10 +16,11 @@ describe("fi-select", () => {
           {
             value: "pear",
             label: "Pear",
+            disabled: true,
           },
         ],
+        ...props,
       },
-      ...props,
     })
   }
 
@@ -35,19 +36,29 @@ describe("fi-select", () => {
     wrapper.get("[data-test=list]").should("not.be.visible")
   })
 
-  it("should display a list with items when the user clicks on the input", () => {
+  it("should open the dropdown with a list of items when the user clicks on the input", () => {
     const wrapper = createWrapper()
 
-    wrapper.get("[data-test=input]").click()
+    wrapper.get("[data-test=input-wrapper]").click()
 
     wrapper.get("[data-test=list]").should("be.visible")
     wrapper.get("[data-test=list-item]").first().should("have.text", "Apple")
   })
 
-  it("should select an item when the user clicks on an item", () => {
+  it("should add the class 'active' to the input wrapper when the dropdown opens", () => {
     const wrapper = createWrapper()
 
-    wrapper.get("[data-test=input]").click()
+    wrapper.get("[data-test=input-wrapper]").should("not.have.class", "active")
+
+    wrapper.get("[data-test=input-wrapper]").click()
+
+    wrapper.get("[data-test=input-wrapper]").should("have.class", "active")
+  })
+
+  it("should select an item and close the dropdown when the user clicks on an item", () => {
+    const wrapper = createWrapper()
+
+    wrapper.get("[data-test=input-wrapper]").click()
     wrapper.get("[data-test=list-item]").first().click()
 
     wrapper.get("[data-test=input]").should("have.value", "Apple")
@@ -57,38 +68,54 @@ describe("fi-select", () => {
   it("should highlight the selected list item in the list", () => {
     const wrapper = createWrapper()
 
-    wrapper.get("[data-test=input]").click()
+    wrapper.get("[data-test=input-wrapper]").click()
     wrapper.get("[data-test=list-item]").first().click()
-    wrapper.get("[data-test=input]").click()
+    wrapper.get("[data-test=input-wrapper]").click()
 
     wrapper
       .get("[data-test=list-item]")
       .first()
-      .should("have.class", "bg-primary-50 text-primary-500")
+      .should("have.class", "selected")
 
     wrapper
       .get("[data-test=list-item]")
       .eq(1)
-      .should("not.have.class", "bg-primary-50 text-primary-500")
+      .should("not.have.class", "selected")
   })
 
-  it("should not select an item when it is disabled", () => {
-    const wrapper = mount(FiSelect, {
-      props: {
-        items: [
-          {
-            value: 2,
-            label: "Pear",
-            disabled: true,
-          },
-        ],
-      },
-    })
+  it("should apply the class 'disabled' to disabled items", () => {
+    const wrapper = createWrapper()
 
-    wrapper.get("[data-test=input]").click()
-    wrapper.get("[data-test=list-item]").first().click()
+    wrapper.get("[data-test=input-wrapper]").click()
+
+    wrapper
+      .get("[data-test=list-item]")
+      .first()
+      .should("not.have.class", "disabled")
+    wrapper.get("[data-test=list-item]").last().should("have.class", "disabled")
+  })
+
+  it("should not select an item when the item is disabled", () => {
+    const wrapper = createWrapper()
+
+    wrapper.get("[data-test=input-wrapper]").click()
+    wrapper.get("[data-test=list-item]").last().click()
 
     wrapper.get("[data-test=input]").should("not.have.value", "Pear")
     wrapper.get("[data-test=list]").should("be.visible")
+  })
+
+  it("should render the select field as disabled when the property 'disabled' is passed", () => {
+    const wrapper = createWrapper({ props: { disabled: true } })
+
+    wrapper.get("[data-test=input]").should("have.attr", "disabled")
+    wrapper.get("[data-test=select]").should("have.class", "disabled")
+  })
+
+  it("should not open the dropdown when the select is disabled", () => {
+    const wrapper = createWrapper({ props: { disabled: true } })
+
+    wrapper.get("[data-test=input-wrapper]").click()
+    wrapper.get("[data-test=list]").should("not.be.visible")
   })
 })

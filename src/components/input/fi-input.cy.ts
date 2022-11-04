@@ -44,22 +44,16 @@ describe("fi-input", () => {
   })
 
   it("should render the input with a specific size", () => {
-    const sizes = [
-      ["large", "py-3 px-6 text-lg"],
-      ["medium", "py-2 px-5"],
-      ["small", "py-1 px-3 text-sm"],
-      ["tiny", "py-1 px-3 text-xs"],
-      ["default", "py-2 px-4 text-sm"],
-    ]
+    const sizes = ["large", "small", "tiny"]
 
-    sizes.forEach(([size, expectedClass]) => {
+    sizes.forEach((size) => {
       const wrapper = createWrapper({
         props: {
-          [size]: true,
+          size,
         },
       })
 
-      wrapper.get("[data-test=input]").should("have.class", expectedClass)
+      wrapper.get("[data-test=input]").should("have.class", size)
     })
   })
 })

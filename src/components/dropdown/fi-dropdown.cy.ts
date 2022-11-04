@@ -5,7 +5,7 @@ import FiList from "../list/fi-list.vue"
 import FiListItem from "../list/fi-list-item.vue"
 
 describe("fi-dropdown", () => {
-  function createWrapper() {
+  function createWrapper({ props = {} } = {}) {
     return mount(FiDropdown, {
       slots: {
         trigger: () => h("a", { "data-test": "trigger" }, "Click me"),
@@ -22,6 +22,7 @@ describe("fi-dropdown", () => {
             }),
           ]),
       },
+      props,
     })
   }
 
@@ -42,6 +43,13 @@ describe("fi-dropdown", () => {
 
     wrapper.get("[data-test=trigger]").click()
     wrapper.get("[data-test=content]").should("be.visible")
+
+    wrapper.get("[data-test=trigger]").click()
+    wrapper.get("[data-test=content]").should("not.be.visible")
+  })
+
+  it("should not open the dropdown when the dropdown is disabled", () => {
+    const wrapper = createWrapper({ props: { disabled: true } })
 
     wrapper.get("[data-test=trigger]").click()
     wrapper.get("[data-test=content]").should("not.be.visible")

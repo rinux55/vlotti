@@ -50,18 +50,14 @@ const computedAttrs = computed((): HTMLAttributes => {
 })
 
 const computedClass = computed((): string => {
-  const classes = ["p-3"]
+  const classes = []
 
   if (selectedListItem?.value?.value === props.value) {
-    classes.push("bg-primary-50 text-primary-500")
+    classes.push("selected")
   }
 
   if (props.disabled) {
-    classes.push("text-gray-400 cursor-default")
-  } else {
-    classes.push(
-      "hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer"
-    )
+    classes.push("disabled")
   }
 
   return classes.join(" ")
@@ -71,6 +67,7 @@ const computedClass = computed((): string => {
   <div
     data-test="list-item"
     role="listitem"
+    class="item"
     :class="computedClass"
     v-bind="computedAttrs"
     @click="handleClick"
@@ -78,3 +75,20 @@ const computedClass = computed((): string => {
     {{ label }}
   </div>
 </template>
+<style scoped>
+.item {
+  @apply p-3;
+}
+
+.item:not(.disabled) {
+  @apply hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer;
+}
+
+.selected {
+  @apply bg-primary-50 text-primary-500;
+}
+
+.disabled {
+  @apply text-gray-400 cursor-default;
+}
+</style>

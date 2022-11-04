@@ -1,24 +1,20 @@
 <script setup lang="ts">
 import { computed, defineProps } from "vue"
 import { useColor } from "@/composables/use-color"
-import { useSize } from "@/composables/use-size"
 import FiIcon from "../icon/fi-icon.vue"
+import type { Size } from "@/types/size"
 
 const props = defineProps<{
   primary?: boolean
+  size?: Size
+  icon?: string
+  iconRight?: string
   warning?: boolean
   danger?: boolean
   success?: boolean
-  large?: boolean
-  medium?: boolean
-  small?: boolean
-  tiny?: boolean
-  icon?: string
-  iconRight?: string
 }>()
 
 const color = useColor(props)
-const size = useSize(props)
 
 const computedClass = computed((): string => {
   const classes = []
@@ -37,20 +33,24 @@ const computedClass = computed((): string => {
     )
   }
 
-  classes.push(size.value)
+  if (props.size) {
+    classes.push(props.size)
+  }
 
   return classes.join(" ")
 })
 </script>
 
 <template>
-  <button
-    class="font-medium rounded border-1 border-opacity-50 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none"
-    :class="computedClass"
-  >
+  <button class="fi-button" :class="computedClass">
     <span>
       <fi-icon class="pr-2" data-test="icon" :icon="icon" v-if="icon" />
       <slot />
     </span>
   </button>
 </template>
+<style scoped>
+button {
+  @apply font-medium rounded border-1 border-opacity-50 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none;
+}
+</style>

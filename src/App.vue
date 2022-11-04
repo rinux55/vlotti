@@ -1,32 +1,36 @@
 <template>
   <div class="p-30">
     <h1 class="text-3xl pb-5">My App {{ name }}</h1>
-    <div class="space-y-6 space-x-2">
-      <fi-button icon="fa-coffee" primary tiny>Tiny button</fi-button>
-      <fi-button tiny>Tiny button</fi-button>
-      <fi-input tiny />
+    <div class="pb-3 pb-3 space-x-2">
+      <fi-button icon="fa-coffee" primary size="tiny">Tiny button</fi-button>
+      <fi-button size="tiny">Tiny button</fi-button>
+      <fi-input size="tiny" />
+      <fi-select :items="listItems" size="tiny" />
     </div>
-    <div class="space-y-6 space-x-2">
-      <fi-button primary small>Small button</fi-button>
-      <fi-button small>Small button</fi-button>
-      <fi-input small />
+    <div class="pb-3 space-x-2">
+      <fi-button primary size="small">Small button</fi-button>
+      <fi-button size="small">Small button</fi-button>
+      <fi-input size="small" />
+      <fi-select :items="listItems" size="small" v-model="selectedListItem" />
     </div>
-    <div class="space-y-6 space-x-2">
+    <div class="pb-3 space-x-2">
       <fi-button primary>Default button</fi-button>
       <fi-button icon="fa-coffee">Default button</fi-button>
       <fi-input v-model="name" placeholder="Enter app name" />
+      <fi-select :items="listItems" v-model="selectedListItem" />
     </div>
-    <div class="space-y-6 space-x-2">
-      <fi-button primary medium>Medium button</fi-button>
-      <fi-button medium>Medium button</fi-button>
-      <fi-input medium />
+    <div class="pb-3 space-x-2">
+      <fi-button primary size="large">Large button</fi-button>
+      <fi-button size="large">Large button</fi-button>
+      <fi-input size="large" disabled v-model="name" />
+      <fi-select
+        :items="listItems"
+        disabled
+        size="large"
+        v-model="selectedListItem"
+      />
     </div>
-    <div class="space-y-6 space-x-2">
-      <fi-button primary large>Large button</fi-button>
-      <fi-button large>Large button</fi-button>
-      <fi-input large disabled v-model="name" />
-    </div>
-    <div class="space-y-6 space-x-2"></div>
+    <div class="pb-3 space-x-2"></div>
     <h1 class="text-3xl pb-5 pt-5">Dropdown</h1>
     <fi-dropdown>
       <template #trigger>
@@ -42,9 +46,10 @@
     </fi-dropdown>
     Selected Item: {{ selectedDropdownItem }}
     <h1 class="text-3xl pb-5 pt-5">Select</h1>
+
     <fi-select
       :items="[
-        { label: 'Apple', value: 1 },
+        { label: 'Areallyreallysuperduperlongname', value: 1 },
         { label: 'Banana', value: 2 },
         { label: 'test', value: 3, disabled: true },
       ]"
