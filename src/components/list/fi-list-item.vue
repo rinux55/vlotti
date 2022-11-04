@@ -78,6 +78,9 @@ const computedClass = computed((): string => {
 <style scoped>
 .item {
   @apply p-3;
+}
+
+.item:not(.disabled) {
   @apply hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer;
 }
 
