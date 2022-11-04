@@ -4,6 +4,7 @@ import FiDropdown from "@/components/dropdown/fi-dropdown.vue"
 import FiList from "@/components/list/fi-list.vue"
 import FiListItem from "@/components/list/fi-list-item.vue"
 import FiInput from "@/components/input/fi-input.vue"
+import FiIcon from "@/components/icon/fi-icon.vue"
 import { computed, ref, watch } from "vue"
 
 const props = defineProps<{
@@ -43,6 +44,7 @@ watch(
         readonly
         Placeholder="select an item"
       />
+      <fi-icon icon="chevron-down" />
     </template>
     <template #content>
       <fi-list
@@ -56,6 +58,7 @@ watch(
           :key="(item.value as string)"
           :label="item.label"
           :value="item.value"
+          :disabled="item.disabled"
         ></fi-list-item>
       </fi-list>
     </template>
