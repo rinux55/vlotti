@@ -37,8 +37,8 @@ watch(
 </script>
 <template>
   <fi-dropdown class="select">
-    <template #trigger>
-      <div class="relative">
+    <template #trigger="{ active }">
+      <div data-test="input-wrapper" class="relative" :class="{ active }">
         <fi-input
           class="input"
           data-test="input"
@@ -68,15 +68,19 @@ watch(
   </fi-dropdown>
 </template>
 <style scoped>
-.select:hover .icon {
-  @apply text-gray-400;
-}
-
 .input {
   @apply pr-8 cursor-pointer;
 }
 
 .icon {
   @apply absolute right-3 bottom-0 top-0 m-auto text-gray-300 h-3;
+}
+
+.active .icon {
+  @apply !text-primary-500;
+}
+
+.select:hover .icon {
+  @apply text-gray-400;
 }
 </style>

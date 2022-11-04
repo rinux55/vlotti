@@ -67,7 +67,7 @@ const computedClass = computed((): string => {
   <div
     data-test="list-item"
     role="listitem"
-    class="list-item"
+    class="item"
     :class="computedClass"
     v-bind="computedAttrs"
     @click="handleClick"
@@ -76,11 +76,8 @@ const computedClass = computed((): string => {
   </div>
 </template>
 <style scoped>
-.list-item {
+.item {
   @apply p-3;
-}
-
-.list-item:not(.disabled) {
   @apply hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer;
 }
 

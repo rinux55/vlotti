@@ -5,31 +5,29 @@ import type { ListEvents } from "@/types/list"
 import useCloseOnClickOutside from "@/composables/use-close-on-click-outside"
 
 const wrapper = ref<HTMLElement | null>(null)
-const contentVisible = ref(false)
+const active = ref(false)
 
 const dropdownEmitter: Emitter<ListEvents> = mitt<ListEvents>()
 provide("dropdownEmitter", dropdownEmitter)
 
 dropdownEmitter.on("select", () => {
-  contentVisible.value = false
+  active.value = false
 })
 
-useCloseOnClickOutside(wrapper, contentVisible)
+useCloseOnClickOutside(wrapper, active)
 </script>
 <template>
-  <div
-    ref="wrapper"
-    class="inline-block"
-    @keydown.escape="contentVisible = false"
-  >
-    <a data-test="trigger-wrapper" @click="contentVisible = !contentVisible">
-      <slot name="trigger"></slot>
+  <div ref="wrapper" class="inline-block" @keydown.escape="active = false">
+    <a data-test="trigger-wrapper" @click="active = !active">
+      <slot name="trigger" :active="active"></slot>
     </a>
-    <div
-      v-show="contentVisible"
-      class="bg-white border-1 border-gray-300 rounded shadow-xl absolute"
-    >
-      <slot name="content"></slot>
+    <div v-show="active" class="content">
+      <slot name="content" :active="active"></slot>
     </div>
   </div>
 </template>
+<style scoped>
+.content {
+  @apply bg-white border-1 border-gray-300 rounded shadow-xl absolute;
+}
+</style>
