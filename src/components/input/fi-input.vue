@@ -10,7 +10,6 @@ const props = defineProps<{
   danger?: boolean
   success?: boolean
   large?: boolean
-  medium?: boolean
   small?: boolean
   tiny?: boolean
 }>()
@@ -57,9 +56,13 @@ const value = computed({
 <template>
   <input
     data-test="input"
-    class="rounded border-1 border-gray-300 shadow-sm transition duration-150 ring-primary-500 ring-opacity-30 focus:ring-3 focus:border-primary-400 focus-visible:outline-none"
     :class="computedClass"
     v-model="value"
     v-bind="computedAttrs"
   />
 </template>
+<style scoped>
+input {
+  @apply rounded border-1 border-gray-300 shadow-sm transition duration-150 ring-primary-500 ring-opacity-30 focus:ring-3 focus:border-primary-400 focus-visible:outline-none;
+}
+</style>

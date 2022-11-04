@@ -44,13 +44,15 @@ const computedClass = computed((): string => {
 </script>
 
 <template>
-  <button
-    class="font-medium rounded border-1 border-opacity-50 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none"
-    :class="computedClass"
-  >
+  <button class="fi-button" :class="computedClass">
     <span>
       <fi-icon class="pr-2" data-test="icon" :icon="icon" v-if="icon" />
       <slot />
     </span>
   </button>
 </template>
+<style scoped>
+button {
+  @apply font-medium rounded border-1 border-opacity-50 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none;
+}
+</style>

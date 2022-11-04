@@ -76,7 +76,7 @@ watch(
   @apply absolute right-3 bottom-0 top-0 m-auto text-gray-300 h-3;
 }
 
-.active .icon {
+.select > .active .icon {
   @apply !text-primary-500;
 }
 
