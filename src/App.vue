@@ -23,7 +23,12 @@
       <fi-button primary size="large">Large button</fi-button>
       <fi-button size="large">Large button</fi-button>
       <fi-input size="large" disabled v-model="name" />
-      <fi-select :items="listItems" size="large" />
+      <fi-select
+        :items="listItems"
+        disabled
+        size="large"
+        v-model="selectedListItem"
+      />
     </div>
     <div class="pb-3 space-x-2"></div>
     <h1 class="text-3xl pb-5 pt-5">Dropdown</h1>
@@ -48,7 +53,6 @@
         { label: 'Banana', value: 2 },
         { label: 'test', value: 3, disabled: true },
       ]"
-      size="tiny"
       v-model="selectedListItem"
     />
     <fi-button @click="selectedListItem = listItems[1]"

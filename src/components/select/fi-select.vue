@@ -12,6 +12,7 @@ const props = defineProps<{
   modelValue?: ListItem
   items: Array<ListItem>
   size?: Size
+  disabled?: boolean
 }>()
 
 const emit = defineEmits(["update:modelValue"])
@@ -19,6 +20,14 @@ const emit = defineEmits(["update:modelValue"])
 const selectedItem = ref(props.modelValue)
 const selectedItemLabel = computed((): string => {
   return selectedItem.value?.label || ""
+})
+
+const computedClass = computed((): string => {
+  if (props.disabled) {
+    return "disabled"
+  }
+
+  return ""
 })
 
 function updateSelectedListItem(listItem: ListItem): void {
@@ -38,7 +47,12 @@ watch(
 )
 </script>
 <template>
-  <fi-dropdown class="select">
+  <fi-dropdown
+    data-test="select"
+    class="select"
+    :class="computedClass"
+    :disabled="disabled"
+  >
     <template #trigger="{ active }">
       <div
         data-test="input-wrapper"
@@ -50,7 +64,8 @@ watch(
           data-test="input"
           v-model="selectedItemLabel"
           readonly
-          :size="props.size"
+          :size="size"
+          :disabled="disabled"
           Placeholder="select an item"
         />
         <fi-icon icon="fa-chevron-down" class="icon" />
@@ -89,5 +104,13 @@ watch(
 
 .select:hover .icon {
   @apply text-gray-400;
+}
+
+.select.disabled .input {
+  @apply !cursor-default;
+}
+
+.select.disabled .icon {
+  @apply !text-gray-300;
 }
 </style>

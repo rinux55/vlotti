@@ -7,6 +7,10 @@ import useCloseOnClickOutside from "@/composables/use-close-on-click-outside"
 const wrapper = ref<HTMLElement | null>(null)
 const active = ref(false)
 
+const props = defineProps<{
+  disabled?: boolean
+}>()
+
 const dropdownEmitter: Emitter<ListEvents> = mitt<ListEvents>()
 provide("dropdownEmitter", dropdownEmitter)
 
@@ -15,10 +19,18 @@ dropdownEmitter.on("select", () => {
 })
 
 useCloseOnClickOutside(wrapper, active)
+
+function handleClick(): undefined {
+  if (props.disabled) {
+    return
+  }
+
+  active.value = !active.value
+}
 </script>
 <template>
   <div ref="wrapper" class="inline-block" @keydown.escape="active = false">
-    <a data-test="trigger-wrapper" @click="active = !active">
+    <a data-test="trigger-wrapper" @click="handleClick">
       <slot name="trigger" :active="active"></slot>
     </a>
     <div v-show="active" class="content z-1">
