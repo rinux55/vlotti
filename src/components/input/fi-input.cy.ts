@@ -49,7 +49,7 @@ describe("fi-input", () => {
     sizes.forEach((size) => {
       const wrapper = createWrapper({
         props: {
-          [size]: true,
+          size,
         },
       })
 

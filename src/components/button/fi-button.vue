@@ -1,24 +1,20 @@
 <script setup lang="ts">
 import { computed, defineProps } from "vue"
 import { useColor } from "@/composables/use-color"
-import { useSize } from "@/composables/use-size"
 import FiIcon from "../icon/fi-icon.vue"
+import type { Size } from "@/types/size"
 
 const props = defineProps<{
   primary?: boolean
+  size?: Size
+  icon?: string
+  iconRight?: string
   warning?: boolean
   danger?: boolean
   success?: boolean
-  large?: boolean
-  medium?: boolean
-  small?: boolean
-  tiny?: boolean
-  icon?: string
-  iconRight?: string
 }>()
 
 const color = useColor(props)
-const size = useSize(props)
 
 const computedClass = computed((): string => {
   const classes = []
@@ -37,7 +33,9 @@ const computedClass = computed((): string => {
     )
   }
 
-  classes.push(size.value)
+  if (props.size) {
+    classes.push(props.size)
+  }
 
   return classes.join(" ")
 })

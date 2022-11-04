@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, type InputHTMLAttributes } from "vue"
-import { useSize } from "@/composables/use-size"
+import type { Size } from "@/types/size"
 
 const props = defineProps<{
   modelValue?: string
@@ -9,19 +9,17 @@ const props = defineProps<{
   warning?: boolean
   danger?: boolean
   success?: boolean
-  large?: boolean
-  small?: boolean
-  tiny?: boolean
+  size?: Size
 }>()
 
 const emit = defineEmits(["update:modelValue"])
 
-const size = useSize(props)
-
 const computedClass = computed((): string => {
   const classes: Array<string> = []
 
-  classes.push(size.value)
+  if (props.size) {
+    classes.push(props.size)
+  }
 
   if (props.disabled) {
     classes.push("bg-gray-100 text-gray-400")

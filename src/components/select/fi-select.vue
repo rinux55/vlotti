@@ -6,10 +6,12 @@ import FiListItem from "@/components/list/fi-list-item.vue"
 import FiInput from "@/components/input/fi-input.vue"
 import FiIcon from "@/components/icon/fi-icon.vue"
 import { computed, ref, watch } from "vue"
+import type { Size } from "@/types/size"
 
 const props = defineProps<{
   modelValue?: ListItem
   items: Array<ListItem>
+  size?: Size
 }>()
 
 const emit = defineEmits(["update:modelValue"])
@@ -38,12 +40,17 @@ watch(
 <template>
   <fi-dropdown class="select">
     <template #trigger="{ active }">
-      <div data-test="input-wrapper" class="relative" :class="{ active }">
+      <div
+        data-test="input-wrapper"
+        class="input-wrapper relative"
+        :class="{ active }"
+      >
         <fi-input
           class="input"
           data-test="input"
           v-model="selectedItemLabel"
           readonly
+          :size="props.size"
           Placeholder="select an item"
         />
         <fi-icon icon="fa-chevron-down" class="icon" />
@@ -73,10 +80,10 @@ watch(
 }
 
 .icon {
-  @apply absolute right-3 bottom-0 top-0 m-auto text-gray-300 h-3;
+  @apply absolute right-3 bottom-0 top-0 m-auto text-gray-300 h-1/3;
 }
 
-.select > .active .icon {
+.input-wrapper.active .icon {
   @apply !text-primary-500;
 }
 

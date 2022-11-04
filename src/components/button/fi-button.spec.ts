@@ -46,7 +46,7 @@ describe("fi-button", () => {
     "renders a button with size %s",
     (size) => {
       const wrapper = createWrapper({
-        props: { [size]: true },
+        props: { size },
       })
 
       expect(wrapper.attributes("class")).toContain(size)
