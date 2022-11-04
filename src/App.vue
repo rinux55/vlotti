@@ -42,7 +42,14 @@
     </fi-dropdown>
     Selected Item: {{ selectedDropdownItem }}
     <h1 class="text-3xl pb-5 pt-5">Select</h1>
-    <fi-select :items="listItems" v-model="selectedListItem" />
+    <fi-select
+      :items="[
+        { label: 'Apple', value: 1 },
+        { label: 'Banana', value: 2 },
+        { label: 'test', value: 3, disabled: true },
+      ]"
+      v-model="selectedListItem"
+    />
     <fi-button @click="selectedListItem = listItems[1]"
       >Select Banana</fi-button
     >
