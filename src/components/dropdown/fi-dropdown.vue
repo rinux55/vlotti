@@ -21,7 +21,7 @@ useCloseOnClickOutside(wrapper, active)
     <a data-test="trigger-wrapper" @click="active = !active">
       <slot name="trigger" :active="active"></slot>
     </a>
-    <div v-show="active" class="content">
+    <div v-show="active" class="content z-1">
       <slot name="content" :active="active"></slot>
     </div>
   </div>
