@@ -64,12 +64,12 @@ describe("fi-select", () => {
     wrapper
       .get("[data-test=list-item]")
       .first()
-      .should("have.class", "bg-primary-50 text-primary-500")
+      .should("have.class", "selected")
 
     wrapper
       .get("[data-test=list-item]")
       .eq(1)
-      .should("not.have.class", "bg-primary-50 text-primary-500")
+      .should("not.have.class", "selected")
   })
 
   it("should not select an item when it is disabled", () => {

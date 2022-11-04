@@ -44,7 +44,7 @@
     <h1 class="text-3xl pb-5 pt-5">Select</h1>
     <fi-select
       :items="[
-        { label: 'Apple', value: 1 },
+        { label: 'Areallyreallysuperduperlongname', value: 1 },
         { label: 'Banana', value: 2 },
         { label: 'test', value: 3, disabled: true },
       ]"

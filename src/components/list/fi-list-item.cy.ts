@@ -11,11 +11,6 @@ describe("fi-list-item", () => {
     })
   }
 
-  const activeClass =
-    "hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer"
-
-  const disabledClass = "text-gray-400 cursor-default"
-
   it("should render the list item label", () => {
     const wrapper = createWrapper()
 
@@ -25,8 +20,7 @@ describe("fi-list-item", () => {
   it("should add classes for interactivity when the list item is not disabled", () => {
     createWrapper()
       .get("[data-test=list-item]")
-      .should("have.class", activeClass)
-      .should("not.have.class", disabledClass)
+      .should("not.have.class", "disabled")
   })
 
   it("should have a gray text when the list item is disabled", () => {
@@ -36,8 +30,7 @@ describe("fi-list-item", () => {
       },
     })
       .get("[data-test=list-item]")
-      .should("have.class", disabledClass)
-      .should("not.have.class", activeClass)
+      .should("have.class", "disabled")
   })
 
   it("should have a tabindex when the list item is not disabled", () => {

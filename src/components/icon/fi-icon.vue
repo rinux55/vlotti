@@ -2,9 +2,9 @@
 import { computed } from "vue"
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome"
 import { library } from "@fortawesome/fontawesome-svg-core"
-import { faCoffee } from "@fortawesome/free-solid-svg-icons"
+import { faCoffee, faChevronDown } from "@fortawesome/free-solid-svg-icons"
 
-library.add(faCoffee)
+library.add(faCoffee, faChevronDown)
 
 const props = defineProps<{ icon: string }>()
 

@@ -36,15 +36,18 @@ watch(
 )
 </script>
 <template>
-  <fi-dropdown>
+  <fi-dropdown class="select">
     <template #trigger>
-      <fi-input
-        data-test="input"
-        v-model="selectedItemLabel"
-        readonly
-        Placeholder="select an item"
-      />
-      <fi-icon icon="chevron-down" />
+      <div class="relative">
+        <fi-input
+          class="input"
+          data-test="input"
+          v-model="selectedItemLabel"
+          readonly
+          Placeholder="select an item"
+        />
+        <fi-icon icon="fa-chevron-down" class="icon" />
+      </div>
     </template>
     <template #content>
       <fi-list
@@ -64,3 +67,16 @@ watch(
     </template>
   </fi-dropdown>
 </template>
+<style scoped>
+.select:hover .icon {
+  @apply text-gray-400;
+}
+
+.input {
+  @apply pr-8 cursor-pointer;
+}
+
+.icon {
+  @apply absolute right-3 bottom-0 top-0 m-auto text-gray-300 h-3;
+}
+</style>
