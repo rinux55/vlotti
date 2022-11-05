@@ -11,6 +11,7 @@ import type { Size } from "@/types/size"
 const props = defineProps<{
   modelValue?: ListItem
   items: Array<ListItem>
+  label: string
   size?: Size
   disabled?: boolean
 }>()
@@ -64,6 +65,7 @@ watch(
           data-test="input"
           v-model="selectedItemLabel"
           readonly
+          :label="label"
           :size="size"
           :disabled="disabled"
           Placeholder="select an item"

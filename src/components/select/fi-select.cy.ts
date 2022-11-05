@@ -65,7 +65,7 @@ describe("fi-select", () => {
     wrapper.get("[data-test=list]").should("not.be.visible")
   })
 
-  it("should highlight the selected list item in the list", () => {
+  it("should add the class 'selected' and the aria-selected attribute to the selected list item", () => {
     const wrapper = createWrapper()
 
     wrapper.get("[data-test=input-wrapper]").click()
@@ -76,11 +76,13 @@ describe("fi-select", () => {
       .get("[data-test=list-item]")
       .first()
       .should("have.class", "selected")
+      .should("have.attr", "aria-selected", "true")
 
     wrapper
       .get("[data-test=list-item]")
       .eq(1)
       .should("not.have.class", "selected")
+      .should("have.attr", "aria-selected", "false")
   })
 
   it("should apply the class 'disabled' to disabled items", () => {

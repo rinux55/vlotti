@@ -25,17 +25,9 @@ const emitters: Array<Emitter<ListEvents>> = [
   inject("dropdownEmitter") as Emitter<ListEvents>,
 ]
 
-function handleClick(): void {
-  if (props.disabled) {
-    return
-  }
-
-  const item: ListItem = readonly(props)
-
-  emitters.forEach(({ emit }) => emit("select", item))
-
-  emit("select", item)
-}
+const isSelected = computed((): boolean => {
+  return selectedListItem?.value?.value === props.value
+})
 
 const computedAttrs = computed((): HTMLAttributes => {
   const attrs: HTMLAttributes = {}
@@ -52,7 +44,7 @@ const computedAttrs = computed((): HTMLAttributes => {
 const computedClass = computed((): string => {
   const classes = []
 
-  if (selectedListItem?.value?.value === props.value) {
+  if (isSelected.value) {
     classes.push("selected")
   }
 
@@ -62,11 +54,24 @@ const computedClass = computed((): string => {
 
   return classes.join(" ")
 })
+
+function handleClick(): void {
+  if (props.disabled) {
+    return
+  }
+
+  const item: ListItem = readonly(props)
+
+  emitters.forEach(({ emit }) => emit("select", item))
+
+  emit("select", item)
+}
 </script>
 <template>
   <div
     data-test="list-item"
     role="listitem"
+    :aria-selected="isSelected"
     class="item"
     :class="computedClass"
     v-bind="computedAttrs"
@@ -85,7 +90,7 @@ const computedClass = computed((): string => {
 }
 
 .selected {
-  @apply bg-primary-50 text-primary-500;
+  @apply bg-primary-100 text-primary-500;
 }
 
 .disabled {
