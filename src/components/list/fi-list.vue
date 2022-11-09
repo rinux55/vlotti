@@ -22,7 +22,7 @@ listEmitter.on("select", (value) => {
 </script>
 
 <template>
-  <div role="list" data-test="list">
+  <li data-test="list">
     <slot></slot>
-  </div>
+  </li>
 </template>

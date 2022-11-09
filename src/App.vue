@@ -1,33 +1,47 @@
 <template>
-  <div class="p-30">
+  <main class="p-30">
     <h1 class="text-3xl pb-5">My App {{ name }}</h1>
     <div class="pb-3 pb-3 space-x-2">
       <fi-button icon="fa-coffee" primary size="tiny">Tiny button</fi-button>
       <fi-button size="tiny">Tiny button</fi-button>
-      <fi-input size="tiny" />
-      <fi-select :items="listItems" size="tiny" />
+      <fi-input size="tiny" label="tiny-input" />
+      <fi-select :items="listItems" size="tiny" label="dropdown" />
     </div>
     <div class="pb-3 space-x-2">
       <fi-button primary size="small">Small button</fi-button>
       <fi-button size="small">Small button</fi-button>
-      <fi-input size="small" />
-      <fi-select :items="listItems" size="small" v-model="selectedListItem" />
+      <fi-input size="small" label="small-input" />
+      <fi-select
+        :items="listItems"
+        size="small"
+        v-model="selectedListItem"
+        label="dropdown"
+      />
     </div>
     <div class="pb-3 space-x-2">
       <fi-button primary>Default button</fi-button>
       <fi-button icon="fa-coffee">Default button</fi-button>
-      <fi-input v-model="name" placeholder="Enter app name" />
-      <fi-select :items="listItems" v-model="selectedListItem" />
+      <fi-input
+        v-model="name"
+        placeholder="Enter app name"
+        label="default input"
+      />
+      <fi-select
+        :items="listItems"
+        v-model="selectedListItem"
+        label="dropdown"
+      />
     </div>
     <div class="pb-3 space-x-2">
       <fi-button primary size="large">Large button</fi-button>
       <fi-button size="large">Large button</fi-button>
-      <fi-input size="large" disabled v-model="name" />
+      <fi-input size="large" disabled v-model="name" label="large input" />
       <fi-select
         :items="listItems"
         disabled
         size="large"
         v-model="selectedListItem"
+        label="dropdown"
       />
     </div>
     <div class="pb-3 space-x-2"></div>
@@ -54,10 +68,11 @@
         { label: 'test', value: 3, disabled: true },
       ]"
       v-model="selectedListItem"
+      label="dropdown"
     />
-    <fi-button @click="selectedListItem = listItems[1]"
-      >Select Banana</fi-button
-    >
+    <fi-button @click="selectedListItem = listItems[1]">
+      Select Banana
+    </fi-button>
     <h1 class="text-3xl pb-5 pt-5">Table</h1>
 
     <fi-table
@@ -70,7 +85,7 @@
     ></fi-table>
     <h1 class="text-3xl pb-5 pt-5">Icon</h1>
     <fi-icon icon="fa-coffee" />
-  </div>
+  </main>
 </template>
 <script setup lang="ts">
 import { ref, type Ref } from "vue"

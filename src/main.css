@@ -14,3 +14,7 @@ button {
     @apply py-1 px-3 text-xs;
   }  
 }
+
+li {
+  @apply list-none;
+}

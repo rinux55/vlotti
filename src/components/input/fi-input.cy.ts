@@ -4,7 +4,10 @@ import FiInput from "./fi-input.vue"
 describe("fi-input", () => {
   function createWrapper({ props = {} } = {}) {
     return mount(FiInput, {
-      props,
+      props: {
+        label: "My input",
+        ...props,
+      },
     })
   }
 
@@ -19,6 +22,14 @@ describe("fi-input", () => {
     wrapper
       .get("[data-test=input]")
       .should("have.attr", "placeholder", placeholderText)
+  })
+
+  it("should add the aria-label attribute with the label", () => {
+    const wrapper = createWrapper()
+
+    wrapper
+      .get("[data-test=input]")
+      .should("have.attr", "aria-label", "My input")
   })
 
   it("should render an input as disabled when property 'disabled' is given", () => {

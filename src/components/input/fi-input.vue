@@ -3,6 +3,7 @@ import { computed, type InputHTMLAttributes } from "vue"
 import type { Size } from "@/types/size"
 
 const props = defineProps<{
+  label: string
   modelValue?: string
   placeholder?: string
   disabled?: boolean
@@ -54,6 +55,7 @@ const value = computed({
 <template>
   <input
     data-test="input"
+    :aria-label="label"
     :class="computedClass"
     v-model="value"
     v-bind="computedAttrs"
@@ -61,6 +63,11 @@ const value = computed({
 </template>
 <style scoped>
 input {
-  @apply rounded border-1 border-gray-300 shadow-sm transition duration-150 ring-primary-500 ring-opacity-30 focus:ring-3 focus:border-primary-400 focus-visible:outline-none;
+  @apply rounded border-1 border-gray-300 shadow-sm  ring-primary-500 ring-3 ring-opacity-0 transition duration-150;
+}
+
+input:focus,
+input.focus {
+  @apply ring-opacity-30 ring-3 border-primary-400 outline-none;
 }
 </style>

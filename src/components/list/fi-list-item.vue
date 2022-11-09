@@ -19,23 +19,16 @@ const props = defineProps<{
 const selectedListItem = inject("selectedListItem") as
   | ComputedRef<ListItem>
   | undefined
+
 const emit = defineEmits(["select"])
 const emitters: Array<Emitter<ListEvents>> = [
   inject("listEmitter") as Emitter<ListEvents>,
   inject("dropdownEmitter") as Emitter<ListEvents>,
 ]
 
-function handleClick(): void {
-  if (props.disabled) {
-    return
-  }
-
-  const item: ListItem = readonly(props)
-
-  emitters.forEach(({ emit }) => emit("select", item))
-
-  emit("select", item)
-}
+const selected = computed((): boolean => {
+  return selectedListItem?.value?.value === props.value
+})
 
 const computedAttrs = computed((): HTMLAttributes => {
   const attrs: HTMLAttributes = {}
@@ -52,7 +45,7 @@ const computedAttrs = computed((): HTMLAttributes => {
 const computedClass = computed((): string => {
   const classes = []
 
-  if (selectedListItem?.value?.value === props.value) {
+  if (selected.value) {
     classes.push("selected")
   }
 
@@ -62,30 +55,44 @@ const computedClass = computed((): string => {
 
   return classes.join(" ")
 })
+
+function select(): void {
+  if (props.disabled) {
+    return
+  }
+
+  const item: ListItem = readonly(props)
+
+  emitters.forEach(({ emit }) => emit("select", item))
+
+  emit("select", item)
+}
 </script>
 <template>
-  <div
+  <li
+    ref="list-item"
     data-test="list-item"
-    role="listitem"
-    class="item"
+    :aria-selected="selected"
+    class="fi-list-item"
     :class="computedClass"
     v-bind="computedAttrs"
-    @click="handleClick"
+    @click="select"
+    @keydown.enter="select"
   >
     {{ label }}
-  </div>
+  </li>
 </template>
 <style scoped>
-.item {
+.fi-list-item {
   @apply p-3;
 }
 
-.item:not(.disabled) {
+.fi-list-item:not(.disabled) {
   @apply hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer;
 }
 
 .selected {
-  @apply bg-primary-50 text-primary-500;
+  @apply bg-primary-100 text-primary-500;
 }
 
 .disabled {
