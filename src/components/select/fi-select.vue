@@ -10,6 +10,7 @@ import {
   ref,
   watch,
   nextTick,
+  getCurrentInstance,
   type ComponentPublicInstance,
 } from "vue"
 import type { Size } from "@/types/size"
@@ -39,6 +40,18 @@ const computedClass = computed((): string => {
   }
 
   return ""
+})
+
+const uid = computed((): number => {
+  return getCurrentInstance()?.uid || 0
+})
+
+const activeDescendant = computed((): string => {
+  if (!selectedItem.value) {
+    return ""
+  }
+
+  return `fi-list-${uid.value}-item-${selectedItem.value.value}`
 })
 
 function selectListItem(listItem: ListItem): void {
@@ -77,28 +90,33 @@ async function handleArrowKey(event: KeyboardEvent) {
 <template>
   <fi-dropdown
     data-test="select"
-    class="select"
-    :class="computedClass"
-    :disabled="disabled"
     @keydown.up="handleArrowKey($event)"
     @keydown.down="handleArrowKey($event)"
+    class="fi-select"
+    :class="computedClass"
+    :disabled="disabled"
   >
     <template #trigger="{ active, open }">
       <div
         data-test="input-wrapper"
         class="input-wrapper relative"
         :class="{ active }"
+        aria-haspopup="listbox"
+        :aria-expanded="active"
+        :aria-owns="`fi-list-${uid}`"
       >
         <fi-input
-          class="input"
           data-test="input"
+          @keydown.down="open()"
           v-model="selectedItemLabel"
-          readonly
+          class="input"
+          :class="{ focus: active }"
           :label="label"
           :size="size"
           :disabled="disabled"
+          :aria-activedescendant="activeDescendant"
           placeholder="select an item"
-          @keydown.down="open()"
+          readonly
         />
         <fi-icon icon="fa-chevron-down" class="icon" />
       </div>
@@ -108,6 +126,8 @@ async function handleArrowKey(event: KeyboardEvent) {
         data-test="list"
         @update:model-value="selectListItem($event)"
         :model-value="selectedItem"
+        role="listbox"
+        :id="`fi-list-${uid}`"
       >
         <fi-list-item
           data-test="list-item"
@@ -117,6 +137,8 @@ async function handleArrowKey(event: KeyboardEvent) {
           :label="item.label"
           :value="item.value"
           :disabled="item.disabled"
+          :id="`fi-list-${uid}-item-${item.value}`"
+          role="option"
         ></fi-list-item>
       </fi-list>
     </template>
@@ -135,15 +157,15 @@ async function handleArrowKey(event: KeyboardEvent) {
   @apply !text-primary-500;
 }
 
-.select:hover .icon {
+.fi-select:hover .icon {
   @apply text-gray-400;
 }
 
-.select.disabled .input {
+.fi-select.disabled .input {
   @apply !cursor-default;
 }
 
-.select.disabled .icon {
+.fi-select.disabled .icon {
   @apply !text-gray-300;
 }
 </style>

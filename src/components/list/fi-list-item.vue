@@ -26,7 +26,7 @@ const emitters: Array<Emitter<ListEvents>> = [
   inject("dropdownEmitter") as Emitter<ListEvents>,
 ]
 
-const isSelected = computed((): boolean => {
+const selected = computed((): boolean => {
   return selectedListItem?.value?.value === props.value
 })
 
@@ -45,7 +45,7 @@ const computedAttrs = computed((): HTMLAttributes => {
 const computedClass = computed((): string => {
   const classes = []
 
-  if (isSelected.value) {
+  if (selected.value) {
     classes.push("selected")
   }
 
@@ -69,11 +69,10 @@ function select(): void {
 }
 </script>
 <template>
-  <div
+  <li
     ref="list-item"
     data-test="list-item"
-    role="listitem"
-    :aria-selected="isSelected"
+    :aria-selected="selected"
     class="fi-list-item"
     :class="computedClass"
     v-bind="computedAttrs"
@@ -81,7 +80,7 @@ function select(): void {
     @keydown.enter="select"
   >
     {{ label }}
-  </div>
+  </li>
 </template>
 <style scoped>
 .fi-list-item {
@@ -90,10 +89,6 @@ function select(): void {
 
 .fi-list-item:not(.disabled) {
   @apply hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer;
-}
-
-.fi-list-item.focused {
-  @apply bg-gray-200;
 }
 
 .selected {

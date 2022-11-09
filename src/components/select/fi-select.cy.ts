@@ -1,5 +1,6 @@
 import { mount } from "cypress/vue"
 import FiSelect from "./fi-select.vue"
+
 describe("fi-select", () => {
   function createWrapper({ props = {} } = {}) {
     return mount(FiSelect, {
@@ -20,6 +21,7 @@ describe("fi-select", () => {
         ],
         ...props,
       },
+      label: "test label",
     })
   }
 
@@ -71,7 +73,7 @@ describe("fi-select", () => {
       wrapper.get("[data-test=list]").should("not.be.visible")
     })
 
-    it("should add the class 'selected' and the aria-selected attribute to the selected list item", () => {
+    it("should add the class 'selected' to the selected list item", () => {
       const wrapper = createWrapper()
 
       wrapper.get("[data-test=input-wrapper]").click()
@@ -82,13 +84,11 @@ describe("fi-select", () => {
         .get("[data-test=list-item]")
         .first()
         .should("have.class", "selected")
-        .should("have.attr", "aria-selected", "true")
 
       wrapper
         .get("[data-test=list-item]")
         .eq(1)
         .should("not.have.class", "selected")
-        .should("have.attr", "aria-selected", "false")
     })
   })
 
@@ -157,6 +157,72 @@ describe("fi-select", () => {
 
       wrapper.get("[data-test=input]").should("have.value", "Banana")
       wrapper.get("[data-test=list]").should("not.be.visible")
+    })
+  })
+
+  describe("accessibility", () => {
+    it("should toggle the aria-expanded attribute when opening and closing the dropdown", () => {
+      const wrapper = createWrapper()
+
+      wrapper
+        .get("[data-test=input-wrapper]")
+        .should("have.attr", "aria-expanded", "false")
+
+      wrapper.get("[data-test=input-wrapper]").click()
+
+      wrapper
+        .get("[data-test=input-wrapper]")
+        .should("have.attr", "aria-expanded", "true")
+    })
+
+    it("should have a role and aria-owns attribute with a matching list id", async () => {
+      const wrapper = createWrapper()
+
+      wrapper.get("[data-test=list]").invoke("attr", "id").as("listId")
+
+      wrapper
+        .get("[data-test=input-wrapper]")
+        .should("have.attr", "role", "listbox")
+        .should("have.attr", "aria-owns", "@listId")
+    })
+
+    it("should set the correct aria-activedescendant attribute when selecting a list item", () => {
+      const wrapper = createWrapper()
+
+      wrapper.get("[data-test=list]").invoke("attr", "id").as("listId")
+
+      wrapper.get("[data-test=input-wrapper]").click()
+      wrapper.get("[data-test=list-item]").first().click()
+
+      wrapper.get("@listId").then((listId) => {
+        wrapper
+          .get("[data-test=input]")
+          .should(
+            "have.attr",
+            "aria-activedescendant",
+            `fi-list-${listId}-item-1`
+          )
+      })
+    })
+
+    it("should set the aria-selected attribute to the selected list item", () => {
+      const wrapper = createWrapper()
+
+      wrapper.get("[data-test=input-wrapper]").click()
+      wrapper.get("[data-test=list-item]").first().click()
+      wrapper.get("[data-test=input-wrapper]").click()
+
+      wrapper
+        .get("[data-test=list-item]")
+        .first()
+        .should("have.class", "selected")
+        .should("have.attr", "aria-selected", "true")
+
+      wrapper
+        .get("[data-test=list-item]")
+        .eq(1)
+        .should("not.have.class", "selected")
+        .should("have.attr", "aria-selected", "false")
     })
   })
 
