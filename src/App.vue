@@ -5,13 +5,18 @@
       <fi-button icon="fa-coffee" primary size="tiny">Tiny button</fi-button>
       <fi-button size="tiny">Tiny button</fi-button>
       <fi-input size="tiny" label="tiny-input" />
-      <fi-select :items="listItems" size="tiny" />
+      <fi-select :items="listItems" size="tiny" label="dropdown" />
     </div>
     <div class="pb-3 space-x-2">
       <fi-button primary size="small">Small button</fi-button>
       <fi-button size="small">Small button</fi-button>
       <fi-input size="small" label="small-input" />
-      <fi-select :items="listItems" size="small" v-model="selectedListItem" />
+      <fi-select
+        :items="listItems"
+        size="small"
+        v-model="selectedListItem"
+        label="dropdown"
+      />
     </div>
     <div class="pb-3 space-x-2">
       <fi-button primary>Default button</fi-button>
@@ -21,7 +26,11 @@
         placeholder="Enter app name"
         label="default input"
       />
-      <fi-select :items="listItems" v-model="selectedListItem" />
+      <fi-select
+        :items="listItems"
+        v-model="selectedListItem"
+        label="dropdown"
+      />
     </div>
     <div class="pb-3 space-x-2">
       <fi-button primary size="large">Large button</fi-button>
@@ -32,6 +41,7 @@
         disabled
         size="large"
         v-model="selectedListItem"
+        label="dropdown"
       />
     </div>
     <div class="pb-3 space-x-2"></div>
@@ -58,10 +68,11 @@
         { label: 'test', value: 3, disabled: true },
       ]"
       v-model="selectedListItem"
+      label="dropdown"
     />
-    <fi-button @click="selectedListItem = listItems[1]"
-      >Select Banana</fi-button
-    >
+    <fi-button @click="selectedListItem = listItems[1]">
+      Select Banana
+    </fi-button>
     <h1 class="text-3xl pb-5 pt-5">Table</h1>
 
     <fi-table

@@ -5,7 +5,13 @@ import FiList from "@/components/list/fi-list.vue"
 import FiListItem from "@/components/list/fi-list-item.vue"
 import FiInput from "@/components/input/fi-input.vue"
 import FiIcon from "@/components/icon/fi-icon.vue"
-import { computed, ref, watch } from "vue"
+import {
+  computed,
+  ref,
+  watch,
+  nextTick,
+  type ComponentPublicInstance,
+} from "vue"
 import type { Size } from "@/types/size"
 
 const props = defineProps<{
@@ -23,6 +29,10 @@ const selectedItemLabel = computed((): string => {
   return selectedItem.value?.label || ""
 })
 
+const itemRefs = ref<Array<ComponentPublicInstance<HTMLDivElement>>>([])
+
+let focusedItem = ref()
+
 const computedClass = computed((): string => {
   if (props.disabled) {
     return "disabled"
@@ -31,7 +41,7 @@ const computedClass = computed((): string => {
   return ""
 })
 
-function updateSelectedListItem(listItem: ListItem): void {
+function selectListItem(listItem: ListItem): void {
   emit("update:modelValue", listItem)
 
   // only update the selected item internally when no v-model has been bound
@@ -46,6 +56,23 @@ watch(
     selectedItem.value = value
   }
 )
+
+async function handleArrowKey(event: KeyboardEvent) {
+  // make sure the list is visible before focusing
+  await nextTick()
+
+  const currentIndex =
+    props.items.findIndex((i) => i === focusedItem?.value) || 0
+
+  const index = currentIndex + (event.key === "ArrowDown" ? 1 : -1)
+
+  if (!props.items[index]) {
+    return
+  }
+
+  focusedItem.value = props.items[index]
+  itemRefs.value[index].$el.focus()
+}
 </script>
 <template>
   <fi-dropdown
@@ -53,8 +80,10 @@ watch(
     class="select"
     :class="computedClass"
     :disabled="disabled"
+    @keydown.up="handleArrowKey($event)"
+    @keydown.down="handleArrowKey($event)"
   >
-    <template #trigger="{ active }">
+    <template #trigger="{ active, open }">
       <div
         data-test="input-wrapper"
         class="input-wrapper relative"
@@ -68,7 +97,8 @@ watch(
           :label="label"
           :size="size"
           :disabled="disabled"
-          Placeholder="select an item"
+          placeholder="select an item"
+          @keydown.down="open()"
         />
         <fi-icon icon="fa-chevron-down" class="icon" />
       </div>
@@ -76,12 +106,13 @@ watch(
     <template #content>
       <fi-list
         data-test="list"
-        @update:model-value="updateSelectedListItem($event)"
+        @update:model-value="selectListItem($event)"
         :model-value="selectedItem"
       >
         <fi-list-item
           data-test="list-item"
           v-for="item in items"
+          ref="itemRefs"
           :key="(item.value as string)"
           :label="item.label"
           :value="item.value"

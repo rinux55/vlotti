@@ -27,14 +27,22 @@ function handleClick(): undefined {
 
   active.value = !active.value
 }
+
+function close() {
+  active.value = false
+}
+
+function open() {
+  active.value = true
+}
 </script>
 <template>
   <div ref="wrapper" class="inline-block" @keydown.escape="active = false">
     <a data-test="trigger-wrapper" @click="handleClick">
-      <slot name="trigger" :active="active"></slot>
+      <slot name="trigger" v-bind="{ active, close, open }"></slot>
     </a>
     <div v-show="active" class="content z-1">
-      <slot name="content" :active="active"></slot>
+      <slot name="content" :active="ref(active)"></slot>
     </div>
   </div>
 </template>

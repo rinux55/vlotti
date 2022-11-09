@@ -19,6 +19,7 @@ const props = defineProps<{
 const selectedListItem = inject("selectedListItem") as
   | ComputedRef<ListItem>
   | undefined
+
 const emit = defineEmits(["select"])
 const emitters: Array<Emitter<ListEvents>> = [
   inject("listEmitter") as Emitter<ListEvents>,
@@ -55,7 +56,7 @@ const computedClass = computed((): string => {
   return classes.join(" ")
 })
 
-function handleClick(): void {
+function select(): void {
   if (props.disabled) {
     return
   }
@@ -69,24 +70,30 @@ function handleClick(): void {
 </script>
 <template>
   <div
+    ref="list-item"
     data-test="list-item"
     role="listitem"
     :aria-selected="isSelected"
-    class="item"
+    class="fi-list-item"
     :class="computedClass"
     v-bind="computedAttrs"
-    @click="handleClick"
+    @click="select"
+    @keydown.enter="select"
   >
     {{ label }}
   </div>
 </template>
 <style scoped>
-.item {
+.fi-list-item {
   @apply p-3;
 }
 
-.item:not(.disabled) {
+.fi-list-item:not(.disabled) {
   @apply hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer;
+}
+
+.fi-list-item.focused {
+  @apply bg-gray-200;
 }
 
 .selected {
