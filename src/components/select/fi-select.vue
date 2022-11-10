@@ -25,14 +25,21 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:modelValue"])
 
-const selectedItem = ref(props.modelValue)
-const selectedItemLabel = computed((): string => {
-  return selectedItem.value?.label || ""
-})
+watch(
+  () => props.modelValue,
+  (value) => {
+    selectedItem.value = value
+  }
+)
+
+const selectedItem = ref<ListItem | undefined>(props.modelValue)
+const focusedItem = ref<ListItem | null>()
 
 const itemRefs = ref<Array<ComponentPublicInstance<HTMLDivElement>>>([])
 
-let focusedItem = ref()
+const selectedItemLabel = computed((): string => {
+  return selectedItem.value?.label || ""
+})
 
 const computedClass = computed((): string => {
   if (props.disabled) {
@@ -62,13 +69,6 @@ function selectListItem(listItem: ListItem): void {
     selectedItem.value = listItem
   }
 }
-
-watch(
-  () => props.modelValue,
-  (value) => {
-    selectedItem.value = value
-  }
-)
 
 async function handleArrowKey(event: KeyboardEvent) {
   // make sure the list is visible before focusing

@@ -37,21 +37,21 @@ function open() {
 }
 </script>
 <template>
-  <div
-    ref="wrapper"
-    class="fi-dropdown inline-block"
-    @keydown.escape="active = false"
-  >
+  <div ref="wrapper" class="fi-dropdown" @keydown.escape="active = false">
     <a data-test="trigger-wrapper" @click="handleClick">
       <slot name="trigger" v-bind="{ active, close, open }"></slot>
     </a>
-    <div v-show="active" class="content z-1">
+    <div v-show="active" class="content">
       <slot name="content" :active="ref(active)"></slot>
     </div>
   </div>
 </template>
 <style scoped>
+.fi-dropdown {
+  @apply inline-block relative;
+}
+
 .content {
-  @apply bg-white border-1 border-gray-300 rounded shadow-xl absolute;
+  @apply bg-white border-1 border-gray-300 rounded shadow-xl z-1 absolute right-0 left-0;
 }
 </style>
