@@ -75,6 +75,7 @@ function select(): void {
     :aria-selected="selected"
     class="fi-list-item"
     :class="computedClass"
+    :title="label"
     v-bind="computedAttrs"
     @click="select"
     @keydown.enter="select"
@@ -84,7 +85,7 @@ function select(): void {
 </template>
 <style scoped>
 .fi-list-item {
-  @apply p-3;
+  @apply p-3 overflow-x-hidden overflow-ellipsis;
 }
 
 .fi-list-item:not(.disabled) {
@@ -92,7 +93,11 @@ function select(): void {
 }
 
 .selected {
-  @apply bg-primary-100 text-primary-500;
+  @apply bg-primary-100 text-primary-500 font-bold;
+}
+
+.selected:not(.disabled) {
+  @apply hover:bg-primary-200 focus:bg-primary-200 cursor-pointer;
 }
 
 .disabled {
