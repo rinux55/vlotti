@@ -41,9 +41,11 @@ function open() {
     <a data-test="trigger-wrapper" @click="handleClick">
       <slot name="trigger" v-bind="{ active, close, open }"></slot>
     </a>
-    <div v-show="active" class="content">
-      <slot name="content" :active="ref(active)"></slot>
-    </div>
+    <transition>
+      <div v-show="active" class="content">
+        <slot name="content" :active="ref(active)"></slot>
+      </div>
+    </transition>
   </div>
 </template>
 <style scoped>
@@ -53,5 +55,19 @@ function open() {
 
 .content {
   @apply bg-white border-1 border-gray-300 rounded shadow-xl z-1 absolute right-0 left-0;
+}
+
+.v-enter-active,
+.v-leave-active {
+  @apply transition-all duration-150 opacity-100 ease-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+  @apply opacity-0;
+}
+
+.v-enter-from {
+  transform: translateY(-1em);
 }
 </style>
