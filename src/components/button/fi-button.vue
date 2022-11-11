@@ -51,6 +51,6 @@ const computedClass = computed((): string => {
 </template>
 <style scoped>
 button {
-  @apply font-medium rounded border-1 border-opacity-50 shadow ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none;
+  @apply font-medium rounded border-1 border-opacity-50 shadow-sm ring-opacity-30 transition duration-150 focus:ring-3 focus-visible:outline-none;
 }
 </style>
