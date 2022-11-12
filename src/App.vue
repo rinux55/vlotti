@@ -68,6 +68,7 @@
         { label: 'test', value: 3, disabled: true },
       ]"
       v-model="selectedListItem"
+      searchable
       label="dropdown"
     />
     <fi-button @click="selectedListItem = listItems[1]">

@@ -12,6 +12,7 @@ import {
   nextTick,
   getCurrentInstance,
   type ComponentPublicInstance,
+  type InputHTMLAttributes,
 } from "vue"
 import type { Size } from "@/types/size"
 
@@ -21,32 +22,64 @@ const props = defineProps<{
   label: string
   size?: Size
   disabled?: boolean
+  searchable?: boolean
 }>()
 
 const emit = defineEmits(["update:modelValue"])
 
+const selectedItem = ref<ListItem | undefined>(props.modelValue)
+const focusedItem = ref<ComponentPublicInstance<HTMLDivElement> | null>()
+const itemRefs = ref<Array<ComponentPublicInstance<HTMLDivElement>>>([])
+const inputValue = ref<string>(selectedItem.value?.label || "")
+const searching = ref<boolean>(false)
+
 watch(
   () => props.modelValue,
-  (value) => {
-    selectedItem.value = value
+  (listItem: ListItem | undefined) => {
+    selectedItem.value = listItem
   }
 )
 
-const selectedItem = ref<ListItem | undefined>(props.modelValue)
-const focusedItem = ref<ListItem | null>()
-
-const itemRefs = ref<Array<ComponentPublicInstance<HTMLDivElement>>>([])
-
-const selectedItemLabel = computed((): string => {
-  return selectedItem.value?.label || ""
-})
+watch(
+  () => selectedItem.value,
+  (listItem: ListItem | undefined) => {
+    searching.value = false
+    focusedItem.value = null
+    inputValue.value = listItem?.label || ""
+  }
+)
 
 const computedClass = computed((): string => {
+  const classes: Array<string> = []
+
   if (props.disabled) {
-    return "disabled"
+    classes.push("disabled")
   }
 
-  return ""
+  if (props.searchable) {
+    classes.push("searchable")
+  }
+
+  return classes.join(" ")
+})
+
+const inputAttributes = computed((): InputHTMLAttributes => {
+  const attributes: InputHTMLAttributes = {}
+
+  if (!props.searchable) {
+    attributes.readonly = true
+  }
+
+  return attributes
+})
+
+const filteredItems = computed((): Array<ListItem> => {
+  if (!searching.value) {
+    return props.items
+  } else {
+    const pattern = new RegExp(`^${inputValue.value}`, "i")
+    return props.items.filter(({ label }) => label.match(pattern))
+  }
 })
 
 const uid = computed((): number => {
@@ -70,20 +103,25 @@ function selectListItem(listItem: ListItem): void {
   }
 }
 
+function handleInput($event: KeyboardEvent) {
+  if ($event.key.match(/^[a-z ]$/i)) {
+    searching.value = true
+  }
+}
+
 async function handleArrowKey(event: KeyboardEvent) {
   // make sure the list is visible before focusing
   await nextTick()
-
-  const currentIndex =
-    props.items.findIndex((i) => i === focusedItem?.value) || 0
+  console.log("handle arrow")
+  const currentIndex = itemRefs.value.findIndex((i) => i === focusedItem?.value)
 
   const index = currentIndex + (event.key === "ArrowDown" ? 1 : -1)
 
-  if (!props.items[index]) {
+  if (!itemRefs.value[index]) {
     return
   }
 
-  focusedItem.value = props.items[index]
+  focusedItem.value = itemRefs.value[index]
   itemRefs.value[index].$el.focus()
 }
 </script>
@@ -108,7 +146,8 @@ async function handleArrowKey(event: KeyboardEvent) {
         <fi-input
           data-test="input"
           @keydown.down="open()"
-          v-model="selectedItemLabel"
+          @keydown="handleInput($event)"
+          v-model="inputValue"
           class="input"
           :class="{ focus: active }"
           :label="label"
@@ -116,7 +155,7 @@ async function handleArrowKey(event: KeyboardEvent) {
           :disabled="disabled"
           :aria-activedescendant="activeDescendant"
           placeholder="select an item"
-          readonly
+          v-bind="inputAttributes"
         />
         <fi-icon icon="fa-chevron-down" class="icon" />
       </div>
@@ -131,7 +170,7 @@ async function handleArrowKey(event: KeyboardEvent) {
       >
         <fi-list-item
           data-test="list-item"
-          v-for="item in items"
+          v-for="item in filteredItems"
           ref="itemRefs"
           :key="(item.value as string)"
           :label="item.label"
@@ -140,13 +179,20 @@ async function handleArrowKey(event: KeyboardEvent) {
           :id="`fi-list-${uid}-item-${item.value}`"
           role="option"
         ></fi-list-item>
+        <fi-list-item
+          data-test="no-results"
+          v-if="!filteredItems.length"
+          label="No results"
+          class="text-gray-400"
+        >
+        </fi-list-item>
       </fi-list>
     </template>
   </fi-dropdown>
 </template>
 <style scoped>
 .input {
-  @apply pr-8 cursor-pointer;
+  @apply pr-8;
 }
 
 .icon {
@@ -161,8 +207,8 @@ async function handleArrowKey(event: KeyboardEvent) {
   @apply text-gray-400;
 }
 
-.fi-select.disabled .input {
-  @apply !cursor-default;
+.fi-select:not(.searchable, .disabled) .input {
+  @apply cursor-pointer;
 }
 
 .fi-select.disabled .icon {

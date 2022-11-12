@@ -5,6 +5,7 @@ describe("fi-select", () => {
   function createWrapper({ props = {} } = {}) {
     return mount(FiSelect, {
       props: {
+        label: "test label",
         items: [
           {
             value: "apple",
@@ -21,7 +22,6 @@ describe("fi-select", () => {
         ],
         ...props,
       },
-      label: "test label",
     })
   }
 
@@ -103,7 +103,7 @@ describe("fi-select", () => {
     })
 
     it("should navigate through the list when the user uses the arrow keys", () => {
-      const wrapper = createWrapper()
+      const wrapper = createWrapper({ props: { searchable: true } })
 
       wrapper.get("[data-test=input]").focus()
       cy.focused().type("{downArrow}", { force: true })
@@ -282,6 +282,60 @@ describe("fi-select", () => {
 
       wrapper.get("[data-test=input-wrapper]").click()
       wrapper.get("[data-test=list]").should("not.be.visible")
+    })
+  })
+
+  describe("searchable", () => {
+    it("should not be searchable when the searchable prop has not been passed", () => {
+      const wrapper = createWrapper()
+
+      wrapper.get("[data-test=input]").should("have.attr", "readonly")
+    })
+
+    it("should filter items when the user searches and the searchable prop has been passed", () => {
+      const wrapper = createWrapper({ props: { searchable: true } })
+
+      wrapper.get("[data-test=input]").type("App")
+
+      wrapper.get("[data-test=list-item]").should("have.length", 1)
+      wrapper.get("[data-test=list-item]").first().should("have.text", "Apple")
+    })
+
+    it("should search without case sensitivity", () => {
+      const wrapper = createWrapper({ props: { searchable: true } })
+
+      wrapper.get("[data-test=input]").type("ba")
+
+      wrapper.get("[data-test=list-item]").should("have.length", 1)
+      wrapper.get("[data-test=list-item]").first().should("have.text", "Banana")
+    })
+
+    it("should show the label of the selected item in the input when an item is selected", () => {
+      const wrapper = createWrapper({ props: { searchable: true } })
+
+      wrapper.get("[data-test=input]").type("ba")
+
+      wrapper.get("[data-test=list-item]").first().click()
+      wrapper.get("[data-test=input]").should("have.value", "Banana")
+    })
+
+    it("should display a 'no results' item when no results are found", () => {
+      const wrapper = createWrapper({ props: { searchable: true } })
+
+      wrapper.get("[data-test=input]").type("pinneapple")
+
+      wrapper.get("[data-test=list-item]").should("not.exist")
+      wrapper.get("[data-test=no-results]").should("be.visible")
+      wrapper.get("[data-test=no-results]").should("have.text", "No results")
+    })
+
+    it("should not display the 'no results' item when there are results", () => {
+      const wrapper = createWrapper({ props: { searchable: true } })
+
+      wrapper.get("[data-test=input]").type("ba")
+
+      wrapper.get("[data-test=list-item]").should("have.length", 1)
+      wrapper.get("[data-test=no-results]").should("not.exist")
     })
   })
 })
