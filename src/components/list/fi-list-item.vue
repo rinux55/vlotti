@@ -79,6 +79,7 @@ function select(): void {
     v-bind="computedAttrs"
     @click="select"
     @keydown.enter="select"
+    tabindex="0"
   >
     {{ label }}
   </li>

@@ -43,7 +43,7 @@ function open() {
     </a>
     <transition>
       <div v-show="active" class="content">
-        <slot name="content" :active="ref(active)"></slot>
+        <slot name="content" :active="active"></slot>
       </div>
     </transition>
   </div>
