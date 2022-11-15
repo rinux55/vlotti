@@ -110,9 +110,6 @@ function handleInput($event: KeyboardEvent) {
 }
 
 async function handleArrowKey(event: KeyboardEvent) {
-  // make sure the list is visible before focusing
-  await nextTick()
-  console.log("handle arrow")
   const currentIndex = itemRefs.value.findIndex((i) => i === focusedItem?.value)
 
   const index = currentIndex + (event.key === "ArrowDown" ? 1 : -1)
