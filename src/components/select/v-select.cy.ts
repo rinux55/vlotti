@@ -1,9 +1,9 @@
 import { mount } from "cypress/vue"
-import FiSelect from "./fi-select.vue"
+import VSelect from "./v-select.vue"
 
-describe("fi-select", () => {
+describe("v-select", () => {
   function createWrapper({ props = {} } = {}) {
-    return mount(FiSelect, {
+    return mount(VSelect, {
       props: {
         label: "test label",
         items: [
@@ -92,7 +92,7 @@ describe("fi-select", () => {
     })
   })
 
-  describe("keyboard navigation", () => {
+  xdescribe("keyboard navigation", () => {
     it("should open the dropdown when the user uses the down arrow", () => {
       const wrapper = createWrapper()
 
@@ -200,7 +200,7 @@ describe("fi-select", () => {
           .should(
             "have.attr",
             "aria-activedescendant",
-            `fi-list-${listId}-item-1`
+            `v-list-${listId}-item-1`
           )
       })
     })

@@ -73,7 +73,7 @@ function select(): void {
     ref="list-item"
     data-test="list-item"
     :aria-selected="selected"
-    class="fi-list-item"
+    class="v-list-item"
     :class="computedClass"
     :title="label"
     v-bind="computedAttrs"
@@ -85,11 +85,11 @@ function select(): void {
   </li>
 </template>
 <style scoped>
-.fi-list-item {
+.v-list-item {
   @apply p-3 overflow-x-hidden overflow-ellipsis;
 }
 
-.fi-list-item:not(.disabled) {
+.v-list-item:not(.disabled) {
   @apply hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer;
 }
 

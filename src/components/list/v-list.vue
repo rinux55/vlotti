@@ -22,7 +22,7 @@ listEmitter.on("select", (value) => {
 </script>
 
 <template>
-  <li data-test="list" class="fi-list">
+  <li data-test="list" class="v-list">
     <slot></slot>
   </li>
 </template>

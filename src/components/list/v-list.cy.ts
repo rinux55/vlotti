@@ -1,9 +1,9 @@
 import { mount } from "cypress/vue"
-import FiList from "./fi-list.vue"
+import VList from "./v-list.vue"
 
-describe("fi-list", () => {
+describe("v-list", () => {
   function createWrapper() {
-    return mount(FiList, {
+    return mount(VList, {
       slots: {
         default: "List Content",
       },

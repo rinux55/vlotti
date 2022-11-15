@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { ListItem } from "@/types/list.d"
-import FiDropdown from "@/components/dropdown/fi-dropdown.vue"
-import FiList from "@/components/list/fi-list.vue"
-import FiListItem from "@/components/list/fi-list-item.vue"
-import FiInput from "@/components/input/fi-input.vue"
-import FiIcon from "@/components/icon/fi-icon.vue"
+import VDropdown from "@/components/dropdown/v-dropdown.vue"
+import VList from "@/components/list/v-list.vue"
+import VListItem from "@/components/list/v-list-item.vue"
+import VInput from "@/components/input/v-input.vue"
+import VIcon from "@/components/icon/v-icon.vue"
 import {
   computed,
   ref,
@@ -91,7 +91,7 @@ const activeDescendant = computed((): string => {
     return ""
   }
 
-  return `fi-list-${uid.value}-item-${selectedItem.value.value}`
+  return `v-list-${uid.value}-item-${selectedItem.value.value}`
 })
 
 function selectListItem(listItem: ListItem): void {
@@ -123,11 +123,11 @@ async function handleArrowKey(event: KeyboardEvent) {
 }
 </script>
 <template>
-  <fi-dropdown
+  <v-dropdown
     data-test="select"
     @keydown.up="handleArrowKey($event)"
     @keydown.down="handleArrowKey($event)"
-    class="fi-select"
+    class="v-select"
     :class="computedClass"
     :disabled="disabled"
   >
@@ -138,9 +138,9 @@ async function handleArrowKey(event: KeyboardEvent) {
         :class="{ active }"
         aria-haspopup="listbox"
         :aria-expanded="active"
-        :aria-owns="`fi-list-${uid}`"
+        :aria-owns="`v-list-${uid}`"
       >
-        <fi-input
+        <v-input
           data-test="input"
           @keydown.down="open()"
           @keydown="handleInput($event)"
@@ -154,18 +154,18 @@ async function handleArrowKey(event: KeyboardEvent) {
           placeholder="select an item"
           v-bind="inputAttributes"
         />
-        <fi-icon icon="fa-chevron-down" class="icon" />
+        <v-icon icon="fa-chevron-down" class="icon" />
       </div>
     </template>
     <template #content>
-      <fi-list
+      <v-list
         data-test="list"
         @update:model-value="selectListItem($event)"
         :model-value="selectedItem"
         role="listbox"
-        :id="`fi-list-${uid}`"
+        :id="`v-list-${uid}`"
       >
-        <fi-list-item
+        <v-list-item
           data-test="list-item"
           v-for="item in filteredItems"
           ref="itemRefs"
@@ -173,19 +173,19 @@ async function handleArrowKey(event: KeyboardEvent) {
           :label="item.label"
           :value="item.value"
           :disabled="item.disabled"
-          :id="`fi-list-${uid}-item-${item.value}`"
+          :id="`v-list-${uid}-item-${item.value}`"
           role="option"
-        ></fi-list-item>
-        <fi-list-item
+        ></v-list-item>
+        <v-list-item
           data-test="no-results"
           v-if="!filteredItems.length"
           label="No results"
           class="text-gray-400"
         >
-        </fi-list-item>
-      </fi-list>
+        </v-list-item>
+      </v-list>
     </template>
-  </fi-dropdown>
+  </v-dropdown>
 </template>
 <style scoped>
 .input {
@@ -200,15 +200,15 @@ async function handleArrowKey(event: KeyboardEvent) {
   @apply !text-primary-500;
 }
 
-.fi-select:hover .icon {
+.v-select:hover .icon {
   @apply text-gray-400;
 }
 
-.fi-select:not(.searchable, .disabled) .input {
+.v-select:not(.searchable, .disabled) .input {
   @apply cursor-pointer;
 }
 
-.fi-select.disabled .icon {
+.v-select.disabled .icon {
   @apply !text-gray-300;
 }
 </style>

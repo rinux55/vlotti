@@ -1,9 +1,9 @@
 import { mount } from "cypress/vue"
-import FiListItem from "./fi-list-item.vue"
+import VListItem from "./v-list-item.vue"
 
-describe("fi-list-item", () => {
+describe("v-list-item", () => {
   function createWrapper({ props = {} } = {}) {
-    return mount(FiListItem, {
+    return mount(VListItem, {
       props: {
         label: "List Item",
         ...props,

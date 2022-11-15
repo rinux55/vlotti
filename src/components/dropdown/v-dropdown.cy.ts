@@ -1,21 +1,21 @@
 import { mount } from "cypress/vue"
 import { h } from "vue"
-import FiDropdown from "./fi-dropdown.vue"
-import FiList from "../list/fi-list.vue"
-import FiListItem from "../list/fi-list-item.vue"
+import VDropdown from "./v-dropdown.vue"
+import VList from "../list/v-list.vue"
+import VListItem from "../list/v-list-item.vue"
 
-describe("fi-dropdown", () => {
+describe("v-dropdown", () => {
   function createWrapper({ props = {} } = {}) {
-    return mount(FiDropdown, {
+    return mount(VDropdown, {
       slots: {
         trigger: () => h("a", { "data-test": "trigger" }, "Click me"),
         content: () =>
-          h(FiList, { "data-test": "content" }, () => [
-            h(FiListItem, {
+          h(VList, { "data-test": "content" }, () => [
+            h(VListItem, {
               "data-test": "item-1",
               label: "Item One",
             }),
-            h(FiListItem, {
+            h(VListItem, {
               "data-test": "item-2",
               label: "Item Two",
               disabled: true,
