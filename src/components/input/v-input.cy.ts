@@ -1,9 +1,9 @@
 import { mount } from "cypress/vue"
-import FiInput from "./fi-input.vue"
+import VInput from "./v-input.vue"
 
-describe("fi-input", () => {
+describe("v-input", () => {
   function createWrapper({ props = {} } = {}) {
-    return mount(FiInput, {
+    return mount(VInput, {
       props: {
         label: "My input",
         ...props,

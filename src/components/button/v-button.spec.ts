@@ -1,12 +1,12 @@
 import { shallowMount, VueWrapper } from "@vue/test-utils"
 import { describe, test, expect } from "vitest"
-import FiButton from "./fi-button.vue"
+import VButton from "./v-button.vue"
 
-describe("fi-button", () => {
+describe("v-button", () => {
   const buttonText = "Click me!"
 
   function createWrapper({ props = {} } = {}) {
-    return shallowMount(FiButton, {
+    return shallowMount(VButton, {
       slots: {
         default: () => buttonText,
       },
@@ -21,7 +21,7 @@ describe("fi-button", () => {
   })
 
   test("renders a button with an icon", () => {
-    const wrapper = shallowMount(FiButton, {
+    const wrapper = shallowMount(VButton, {
       slots: {
         default: () => buttonText,
       },
@@ -37,7 +37,7 @@ describe("fi-button", () => {
   })
 
   test("doesn't render an icon when the icon prop is not passed", () => {
-    const wrapper = shallowMount(FiButton)
+    const wrapper = shallowMount(VButton)
 
     expect(wrapper.findComponent("[data-test=icon]").exists()).toBe(false)
   })

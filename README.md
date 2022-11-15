@@ -1,6 +1,8 @@
-# fluent-interface
+# Vlotti
 
-Fluent interface is a simple component library written with Vue 3 and Windi. This project is in early development.
+Vlotti is a simple component library written with Vue 3 and Windi.
+
+#### This project is in early development.
 
 Tests are written with [Cypress component tests](https://docs.cypress.io/guides/component-testing/overview) and [Vitest](https://vitest.dev/).
 

@@ -1,8 +1,8 @@
 import { shallowMount } from "@vue/test-utils"
 import { describe, test, expect } from "vitest"
-import FiTable from "./fi-table.vue"
+import VTable from "./v-table.vue"
 
-describe("fi-table", () => {
+describe("v-table", () => {
   const columns = [
     {
       label: "Fruit",
@@ -18,7 +18,7 @@ describe("fi-table", () => {
   ]
 
   test("renders table headers", () => {
-    const wrapper = shallowMount(FiTable, {
+    const wrapper = shallowMount(VTable, {
       props: {
         columns,
         data,
@@ -33,7 +33,7 @@ describe("fi-table", () => {
   })
 
   test("renders table rows", () => {
-    const wrapper = shallowMount(FiTable, {
+    const wrapper = shallowMount(VTable, {
       props: {
         columns,
         data,

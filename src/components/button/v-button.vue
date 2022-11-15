@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, defineProps } from "vue"
 import { useColor } from "@/composables/use-color"
-import FiIcon from "../icon/fi-icon.vue"
+import VIcon from "../icon/v-icon.vue"
 import type { Size } from "@/types/size"
 
 const props = defineProps<{
@@ -42,9 +42,9 @@ const computedClass = computed((): string => {
 </script>
 
 <template>
-  <button class="fi-button" :class="computedClass">
+  <button class="v-button" :class="computedClass">
     <span>
-      <fi-icon class="pr-2" data-test="icon" :icon="icon" v-if="icon" />
+      <v-icon class="pr-2" data-test="icon" :icon="icon" v-if="icon" />
       <slot />
     </span>
   </button>

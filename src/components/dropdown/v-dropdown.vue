@@ -37,7 +37,7 @@ function open() {
 }
 </script>
 <template>
-  <div ref="wrapper" class="fi-dropdown" @keydown.escape="active = false">
+  <div ref="wrapper" class="v-dropdown" @keydown.escape="active = false">
     <a data-test="trigger-wrapper" @click="handleClick">
       <slot name="trigger" v-bind="{ active, close, open }"></slot>
     </a>
@@ -49,7 +49,7 @@ function open() {
   </div>
 </template>
 <style scoped>
-.fi-dropdown {
+.v-dropdown {
   @apply inline-block relative;
 }
 
