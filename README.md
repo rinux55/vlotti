@@ -16,23 +16,22 @@ yarn install
 yarn dev
 ```
 
-### Run component tests with [Cypress](https://www.cypress.io/)
+### Run component tests with [Cypress](https://docs.cypress.io/guides/component-testing/overview)
 
 ```sh
-npm run build
-npm run test:component
+yarn test:component
 ```
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
-npm run test:unit
+yarn test:unit
 ```
 
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
-npm run lint
+yarn lint
 ```
 
 ### Type-Check, Compile and Minify for Production
