@@ -1,39 +1,22 @@
 <script setup lang="ts">
-import { computed, type InputHTMLAttributes } from "vue"
-import { useDefaultClasses } from "@/composables/use-default-classes"
+import { computed } from "vue"
+import { useDisabled, type DisabledProps } from "@/composables/use-disabled"
+import { useColor, type ColorProps } from "@/composables/use-color"
+import { useSize, type SizeProps } from "@/composables/use-size"
 
-export interface InputProps {
+export interface InputProps extends ColorProps, DisabledProps, SizeProps {
   label: string
   modelValue?: string
   placeholder?: string
-  disabled?: boolean
-  warning?: boolean
-  danger?: boolean
-  success?: boolean
-  tiny?: boolean
-  small?: boolean
-  large?: boolean
 }
 
 const props = defineProps<InputProps>()
 
 const emit = defineEmits(["update:modelValue"])
 
-const { colorClass, disabledClass, sizeClass } = useDefaultClasses(props)
-
-const computedAttrs = computed((): InputHTMLAttributes => {
-  const attrs: InputHTMLAttributes = {}
-
-  if (props.disabled) {
-    attrs.disabled = true
-  }
-
-  if (props.placeholder) {
-    attrs.placeholder = props.placeholder
-  }
-
-  return attrs
-})
+const { disabledAttr, disabledClass } = useDisabled(props)
+const { colorClass } = useColor(props)
+const { sizeClass } = useSize(props)
 
 const value = computed({
   get() {
@@ -47,11 +30,12 @@ const value = computed({
 <template>
   <input
     data-test="input"
-    :aria-label="label"
-    class="v-input"
-    :class="[colorClass, disabledClass, sizeClass]"
     v-model="value"
-    v-bind="computedAttrs"
+    v-bind="disabledAttr"
+    class="v-input"
+    :class="[colorClass, sizeClass, disabledClass]"
+    :placeholder="placeholder"
+    :aria-label="label"
   />
 </template>
 <style scoped>
@@ -64,7 +48,7 @@ const value = computed({
 }
 
 .v-input:focus,
-.v-input.focus {
+.v-input.v-focus {
   @apply ring-opacity-30 ring-3 border-primary-400 outline-none;
 }
 
