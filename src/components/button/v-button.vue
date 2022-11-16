@@ -1,25 +1,22 @@
 <script setup lang="ts">
-import { defineProps } from "vue"
-import { useDefaultClasses } from "@/composables/use-default-classes"
+import type { ColorProps, SizeProps } from "@/types/component-props"
+import { useColor } from "@/composables/use-color"
+import { useSize } from "@/composables/use-size"
 import VIcon from "../icon/v-icon.vue"
 
-const props = defineProps<{
-  primary?: boolean
+interface ButtonProps extends ColorProps, SizeProps {
   icon?: string
   iconRight?: string
-  warning?: boolean
-  danger?: boolean
-  success?: boolean
-  tiny?: boolean
-  small?: boolean
-  large?: boolean
-}>()
+}
 
-const { colorClass, disabledClass, sizeClass } = useDefaultClasses(props)
+const props = defineProps<ButtonProps>()
+
+const { colorClass } = useColor(props)
+const { sizeClass } = useSize(props)
 </script>
 
 <template>
-  <button class="v-button" :class="[colorClass, disabledClass, sizeClass]">
+  <button class="v-button" :class="[colorClass, sizeClass]">
     <span>
       <v-icon class="pr-2" data-test="icon" :icon="icon" v-if="icon" />
       <slot />

@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import type {
+  ColorProps,
+  DisabledProps,
+  SizeProps,
+  ListProps,
+} from "@/types/component-props"
 import type { ListItem } from "@/types/list.d"
 import VDropdown from "@/components/dropdown/v-dropdown.vue"
 import VList from "@/components/list/v-list.vue"
 import VListItem from "@/components/list/v-list-item.vue"
 import VInput from "@/components/input/v-input.vue"
 import VIcon from "@/components/icon/v-icon.vue"
-import { useDefaultClasses } from "@/composables/use-default-classes"
+import { useDisabled } from "@/composables/use-disabled"
 import { pick } from "lodash-es"
 import {
   computed,
@@ -16,19 +22,15 @@ import {
   type InputHTMLAttributes,
 } from "vue"
 
-const props = defineProps<{
+interface SelectProps extends ColorProps, DisabledProps, SizeProps, ListProps {
   modelValue?: ListItem
-  items: Array<ListItem>
   label: string
-  disabled?: boolean
   searchable?: boolean
-  warning?: boolean
-  danger?: boolean
-  success?: boolean
-  tiny?: boolean
-  small?: boolean
-  large?: boolean
-}>()
+}
+
+const props = defineProps<SelectProps>()
+
+const { disabledClass } = useDisabled(props)
 
 const emit = defineEmits(["update:modelValue"])
 
@@ -53,8 +55,6 @@ watch(
     inputValue.value = listItem?.label || ""
   }
 )
-
-const { disabledClass } = useDefaultClasses(props)
 
 const inputAttributes = computed((): InputHTMLAttributes => {
   const attributes: InputHTMLAttributes = {}
