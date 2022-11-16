@@ -23,7 +23,7 @@ export function useColor({ primary, warning, danger, success }: ColorProps): {
         case success:
           return { "v-success": true }
         default:
-          return {}
+          return { "v-default ": true }
       }
     }),
   }

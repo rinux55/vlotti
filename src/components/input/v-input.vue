@@ -4,7 +4,7 @@ import { useDisabled, type DisabledProps } from "@/composables/use-disabled"
 import { useColor, type ColorProps } from "@/composables/use-color"
 import { useSize, type SizeProps } from "@/composables/use-size"
 
-export interface InputProps extends ColorProps, DisabledProps, SizeProps {
+interface InputProps extends ColorProps, DisabledProps, SizeProps {
   label: string
   modelValue?: string
   placeholder?: string

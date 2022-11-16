@@ -1,10 +1,25 @@
-import { computed, type ComputedRef } from "vue"
+import { computed, type ComponentCustomProps, type ComputedRef } from "vue"
 import type { CSSClassObject } from "@/types/attributes"
 
 export interface SizeProps {
   tiny?: boolean
   small?: boolean
   large?: boolean
+}
+
+export const colorProps: ComponentCustomProps = {
+  primary: {
+    type: Boolean,
+  },
+  warning: {
+    type: Boolean,
+  },
+  danger: {
+    type: Boolean,
+  },
+  success: {
+    type: Boolean,
+  },
 }
 
 export function useSize({ tiny, small, large }: SizeProps): {
