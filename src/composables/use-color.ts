@@ -1,12 +1,6 @@
 import { computed, type ComputedRef } from "vue"
 import type { CSSClassObject } from "@/types/attributes"
-
-export interface ColorProps {
-  primary?: boolean
-  warning?: boolean
-  danger?: boolean
-  success?: boolean
-}
+import type { ColorProps } from "@/types/component-props"
 
 export function useColor({ primary, warning, danger, success }: ColorProps): {
   colorClass: ComputedRef<CSSClassObject>

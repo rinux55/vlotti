@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import type {
+  ColorProps,
+  DisabledProps,
+  SizeProps,
+} from "@/types/component-props"
 import { computed } from "vue"
-import { useDisabled, type DisabledProps } from "@/composables/use-disabled"
-import { useColor, type ColorProps } from "@/composables/use-color"
-import { useSize, type SizeProps } from "@/composables/use-size"
+import { useDisabled } from "@/composables/use-disabled"
+import { useColor } from "@/composables/use-color"
+import { useSize } from "@/composables/use-size"
 
 interface InputProps extends ColorProps, DisabledProps, SizeProps {
   label: string
@@ -12,11 +17,11 @@ interface InputProps extends ColorProps, DisabledProps, SizeProps {
 
 const props = defineProps<InputProps>()
 
-const emit = defineEmits(["update:modelValue"])
-
 const { disabledAttr, disabledClass } = useDisabled(props)
 const { colorClass } = useColor(props)
 const { sizeClass } = useSize(props)
+
+const emit = defineEmits(["update:modelValue"])
 
 const value = computed({
   get() {

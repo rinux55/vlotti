@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { defineProps } from "vue"
-import { useColor, type ColorProps } from "@/composables/use-color"
-import { useSize, type SizeProps } from "@/composables/use-size"
+import type { ColorProps, SizeProps } from "@/types/component-props"
+import { useColor } from "@/composables/use-color"
+import { useSize } from "@/composables/use-size"
 import VIcon from "../icon/v-icon.vue"
 
 interface ButtonProps extends ColorProps, SizeProps {

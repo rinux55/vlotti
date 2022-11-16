@@ -1,9 +1,6 @@
 import { computed, type ComputedRef, type InputHTMLAttributes } from "vue"
 import type { CSSClassObject } from "@/types/attributes"
-
-export interface DisabledProps {
-  disabled?: boolean
-}
+import type { DisabledProps } from "@/types/component-props"
 
 export function useDisabled({ disabled }: DisabledProps): {
   disabledAttr: ComputedRef<InputHTMLAttributes>
