@@ -5,24 +5,29 @@ import VList from "@/components/list/v-list.vue"
 import VListItem from "@/components/list/v-list-item.vue"
 import VInput from "@/components/input/v-input.vue"
 import VIcon from "@/components/icon/v-icon.vue"
+import { useDefaultClasses } from "@/composables/use-default-classes"
+import { pick } from "lodash-es"
 import {
   computed,
   ref,
   watch,
-  nextTick,
   getCurrentInstance,
   type ComponentPublicInstance,
   type InputHTMLAttributes,
 } from "vue"
-import type { Size } from "@/types/size"
 
 const props = defineProps<{
   modelValue?: ListItem
   items: Array<ListItem>
   label: string
-  size?: Size
   disabled?: boolean
   searchable?: boolean
+  warning?: boolean
+  danger?: boolean
+  success?: boolean
+  tiny?: boolean
+  small?: boolean
+  large?: boolean
 }>()
 
 const emit = defineEmits(["update:modelValue"])
@@ -49,19 +54,7 @@ watch(
   }
 )
 
-const computedClass = computed((): string => {
-  const classes: Array<string> = []
-
-  if (props.disabled) {
-    classes.push("disabled")
-  }
-
-  if (props.searchable) {
-    classes.push("searchable")
-  }
-
-  return classes.join(" ")
-})
+const { disabledClass } = useDefaultClasses(props)
 
 const inputAttributes = computed((): InputHTMLAttributes => {
   const attributes: InputHTMLAttributes = {}
@@ -71,6 +64,19 @@ const inputAttributes = computed((): InputHTMLAttributes => {
   }
 
   return attributes
+})
+
+const inputProps = computed(() => {
+  return pick(props, [
+    "warning",
+    "danger",
+    "success",
+    "tiny",
+    "small",
+    "large",
+    "disabled",
+    "label",
+  ])
 })
 
 const filteredItems = computed((): Array<ListItem> => {
@@ -128,13 +134,13 @@ async function handleArrowKey(event: KeyboardEvent) {
     @keydown.up="handleArrowKey($event)"
     @keydown.down="handleArrowKey($event)"
     class="v-select"
-    :class="computedClass"
+    :class="[searchable ? 'v-searchable' : null, disabledClass]"
     :disabled="disabled"
   >
     <template #trigger="{ active, open }">
       <div
         data-test="input-wrapper"
-        class="input-wrapper relative"
+        class="v-input-wrapper"
         :class="{ active }"
         aria-haspopup="listbox"
         :aria-expanded="active"
@@ -145,16 +151,12 @@ async function handleArrowKey(event: KeyboardEvent) {
           @keydown.down="open()"
           @keydown="handleInput($event)"
           v-model="inputValue"
-          class="input"
-          :class="{ focus: active }"
-          :label="label"
-          :size="size"
-          :disabled="disabled"
+          :class="{ 'v-focus': active }"
           :aria-activedescendant="activeDescendant"
           placeholder="select an item"
-          v-bind="inputAttributes"
+          v-bind="{ ...inputAttributes, ...inputProps }"
         />
-        <v-icon icon="fa-chevron-down" class="icon" />
+        <v-icon icon="fa-chevron-down" class="v-icon" />
       </div>
     </template>
     <template #content>
@@ -188,23 +190,27 @@ async function handleArrowKey(event: KeyboardEvent) {
   </v-dropdown>
 </template>
 <style scoped>
-.input {
+.v-input {
   @apply pr-8;
 }
 
-.icon {
+.v-icon {
   @apply absolute right-3 bottom-0 top-0 m-auto text-gray-300 h-1/3;
 }
 
-.input-wrapper.active .icon {
+.v-input-wrapper {
+  @apply relative;
+}
+
+.v-input-wrapper.active .v-icon {
   @apply !text-primary-500;
 }
 
-.v-select:hover .icon {
+.v-select:hover .v-icon {
   @apply text-gray-400;
 }
 
-.v-select:not(.searchable, .disabled) .input {
+.v-select:not(.v-searchable, .v-disabled) .v-input {
   @apply cursor-pointer;
 }
 

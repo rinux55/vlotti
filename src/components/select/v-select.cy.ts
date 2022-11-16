@@ -83,12 +83,12 @@ describe("v-select", () => {
       wrapper
         .get("[data-test=list-item]")
         .first()
-        .should("have.class", "selected")
+        .should("have.class", "v-selected")
 
       wrapper
         .get("[data-test=list-item]")
         .eq(1)
-        .should("not.have.class", "selected")
+        .should("not.have.class", "v-selected")
     })
   })
 
@@ -215,13 +215,13 @@ describe("v-select", () => {
       wrapper
         .get("[data-test=list-item]")
         .first()
-        .should("have.class", "selected")
+        .should("have.class", "v-selected")
         .should("have.attr", "aria-selected", "true")
 
       wrapper
         .get("[data-test=list-item]")
         .eq(1)
-        .should("not.have.class", "selected")
+        .should("not.have.class", "v-selected")
         .should("have.attr", "aria-selected", "false")
     })
   })
@@ -251,11 +251,11 @@ describe("v-select", () => {
       wrapper
         .get("[data-test=list-item]")
         .first()
-        .should("not.have.class", "disabled")
+        .should("not.have.class", "v-disabled")
       wrapper
         .get("[data-test=list-item]")
         .last()
-        .should("have.class", "disabled")
+        .should("have.class", "v-disabled")
     })
 
     it("should not select an item when the item is disabled", () => {
@@ -272,7 +272,7 @@ describe("v-select", () => {
       const wrapper = createWrapper({ props: { disabled: true } })
 
       wrapper.get("[data-test=input]").should("have.attr", "disabled")
-      wrapper.get("[data-test=select]").should("have.class", "disabled")
+      wrapper.get("[data-test=select]").should("have.class", "v-disabled")
     })
   })
 

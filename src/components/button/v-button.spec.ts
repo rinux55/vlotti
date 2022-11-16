@@ -42,26 +42,27 @@ describe("v-button", () => {
     expect(wrapper.findComponent("[data-test=icon]").exists()).toBe(false)
   })
 
-  test.each(["large", "small", "tiny"])(
-    "renders a button with size %s",
-    (size) => {
-      const wrapper = createWrapper({
-        props: { size },
-      })
+  test.each([
+    ["large", "v-large"],
+    ["small", "v-small"],
+    ["tiny", "v-tiny"],
+  ])("renders a button with size %s", (size, expectedClass) => {
+    const wrapper = createWrapper({
+      props: { [size]: true },
+    })
 
-      expect(wrapper.attributes("class")).toContain(size)
-    }
-  )
+    expect(wrapper.attributes("class")).toContain(expectedClass)
+  })
 
   test.each([
-    ["primary", "bg-primary-600 hover:bg-primary-500 ring-primary-500"],
-    ["warning", "bg-yellow-600 hover:bg-yellow-500 ring-yellow-500"],
-    ["danger", "bg-red-600 hover:bg-red-500 ring-red-500"],
-    ["success", "bg-green-600 hover:bg-green-500 ring-green-500"],
+    ["primary", "v-primary"],
+    ["warning", "v-warning"],
+    ["danger", "v-danger"],
+    ["success", "v-success"],
+    [null, "v-default"],
   ])("renders a button with color %s", (color, expectedClass) => {
-    const wrapper = createWrapper({
-      props: { [color]: true },
-    })
+    const props = color ? { [color]: true } : {}
+    const wrapper = createWrapper({ props })
 
     expect(wrapper.attributes("class")).toContain(expectedClass)
   })

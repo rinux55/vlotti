@@ -46,11 +46,11 @@ const computedClass = computed((): string => {
   const classes = []
 
   if (selected.value) {
-    classes.push("selected")
+    classes.push("v-selected")
   }
 
   if (props.disabled) {
-    classes.push("disabled")
+    classes.push("v-disabled")
   }
 
   return classes.join(" ")
@@ -79,7 +79,6 @@ function select(): void {
     v-bind="computedAttrs"
     @click="select"
     @keydown.enter="select"
-    tabindex="0"
   >
     {{ label }}
   </li>
@@ -89,19 +88,19 @@ function select(): void {
   @apply p-3 overflow-x-hidden overflow-ellipsis;
 }
 
-.v-list-item:not(.disabled) {
+.v-list-item:not(.v-disabled) {
   @apply hover:bg-gray-100 active:bg-gray-200 focus:bg-gray-200 cursor-pointer;
 }
 
-.selected {
+.v-selected {
   @apply bg-primary-100 text-primary-500 font-bold;
 }
 
-.selected:not(.disabled) {
+.v-selected:not(.v-disabled) {
   @apply hover:bg-primary-200 focus:bg-primary-200 cursor-pointer;
 }
 
-.disabled {
+.v-disabled {
   @apply text-gray-400 cursor-default;
 }
 </style>

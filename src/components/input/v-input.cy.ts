@@ -39,7 +39,7 @@ describe("v-input", () => {
       },
     }).get("[data-test=input]")
 
-    input.should("have.class", "bg-gray-100 text-gray-400")
+    input.should("have.class", "v-disabled")
     input.should("have.attr", "disabled")
   })
 
@@ -50,21 +50,25 @@ describe("v-input", () => {
       },
     }).get("[data-test=input]")
 
-    input.should("not.have.class", "bg-gray-100 text-gray-400")
+    input.should("not.have.class", "v-disabled")
     input.should("not.have.attr", "disabled")
   })
 
   it("should render the input with a specific size", () => {
-    const sizes = ["large", "small", "tiny"]
+    const sizes: Record<string, string> = {
+      large: "v-large",
+      small: "v-small",
+      tiny: "v-tiny",
+    }
 
-    sizes.forEach((size) => {
+    Object.keys(sizes).forEach((size) => {
       const wrapper = createWrapper({
         props: {
-          size,
+          [size]: true,
         },
       })
 
-      wrapper.get("[data-test=input]").should("have.class", size)
+      wrapper.get("[data-test=input]").should("have.class", sizes[size])
     })
   })
 })
