@@ -20,17 +20,17 @@ describe("v-list-item", () => {
   it("should add classes for interactivity when the list item is not disabled", () => {
     createWrapper()
       .get("[data-test=list-item]")
-      .should("not.have.class", "disabled")
+      .should("not.have.class", "v-disabled")
   })
 
-  it("should have a gray text when the list item is disabled", () => {
+  it("should add the disabled class when the list item is disabled", () => {
     createWrapper({
       props: {
         disabled: true,
       },
     })
       .get("[data-test=list-item]")
-      .should("have.class", "disabled")
+      .should("have.class", "v-disabled")
   })
 
   it("should have a tabindex when the list item is not disabled", () => {

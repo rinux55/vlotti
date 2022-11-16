@@ -7,7 +7,7 @@ type ColorClass =
   | "v-success"
   | "v-default"
 type DisabledClass = "v-disabled" | false
-type SizeClass = "v-tiny" | "v-small" | "v-default" | "v-large" | "v-huge"
+type SizeClass = "v-tiny" | "v-small" | "v-large" | "v-huge"
 type Props = {
   primary?: boolean
   warning?: boolean
@@ -61,8 +61,6 @@ function getClassFromMap(
   props: Props,
   map: Record<string, string>
 ): string | false {
-  // return Object.entries(map).find((key, value) => props[])
-
   let value: string | false = false
 
   Object.keys(map).forEach((key) => {

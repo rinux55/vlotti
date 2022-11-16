@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { defineProps, ref } from "vue"
+import { defineProps } from "vue"
 import { useDefaultClasses } from "@/composables/use-default-classes"
 import VIcon from "../icon/v-icon.vue"
-import type { Size } from "@/types/size"
 
 const props = defineProps<{
   primary?: boolean
@@ -17,8 +16,6 @@ const props = defineProps<{
 }>()
 
 const { colorClass, disabledClass, sizeClass } = useDefaultClasses(props)
-
-console.log(sizeClass.value)
 </script>
 
 <template>

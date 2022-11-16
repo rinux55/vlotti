@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, type InputHTMLAttributes } from "vue"
-import type { Size } from "@/types/size"
+import { useDefaultClasses } from "@/composables/use-default-classes"
 
-const props = defineProps<{
+export interface InputProps {
   label: string
   modelValue?: string
   placeholder?: string
@@ -10,24 +10,16 @@ const props = defineProps<{
   warning?: boolean
   danger?: boolean
   success?: boolean
-  size?: Size
-}>()
+  tiny?: boolean
+  small?: boolean
+  large?: boolean
+}
+
+const props = defineProps<InputProps>()
 
 const emit = defineEmits(["update:modelValue"])
 
-const computedClass = computed((): string => {
-  const classes: Array<string> = []
-
-  if (props.size) {
-    classes.push(props.size)
-  }
-
-  if (props.disabled) {
-    classes.push("bg-gray-100 text-gray-400")
-  }
-
-  return classes.join(" ")
-})
+const { colorClass, disabledClass, sizeClass } = useDefaultClasses(props)
 
 const computedAttrs = computed((): InputHTMLAttributes => {
   const attrs: InputHTMLAttributes = {}
@@ -57,18 +49,26 @@ const value = computed({
     data-test="input"
     :aria-label="label"
     class="v-input"
-    :class="computedClass"
+    :class="[colorClass, disabledClass, sizeClass]"
     v-model="value"
     v-bind="computedAttrs"
   />
 </template>
 <style scoped>
 .v-input {
-  @apply rounded border-1 border-gray-300 shadow-sm  ring-primary-500 ring-3 ring-opacity-0 transition duration-150;
+  @apply rounded 
+    border-1 border-gray-300 
+    ring-primary-500 ring-3 ring-opacity-0 
+    shadow-sm  
+    transition duration-150;
 }
 
 .v-input:focus,
 .v-input.focus {
   @apply ring-opacity-30 ring-3 border-primary-400 outline-none;
+}
+
+.v-disabled {
+  @apply bg-gray-100 text-gray-400;
 }
 </style>
