@@ -8,7 +8,10 @@ export function useDisabled({ disabled }: DisabledProps): {
 } {
   return {
     disabledAttr: computed((): InputHTMLAttributes => {
-      return { disabled: disabled ? "true" : "false" }
+      if (disabled) {
+        return { disabled: true }
+      }
+      return {}
     }),
     disabledClass: computed((): CSSClassObject => {
       return { "v-disabled": disabled }
