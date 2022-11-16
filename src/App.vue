@@ -2,18 +2,24 @@
   <main class="p-30">
     <h1 class="text-3xl pb-5">My App {{ name }}</h1>
     <div class="pb-3 pb-3 space-x-2">
-      <v-button icon="fa-coffee" primary size="tiny">Tiny button</v-button>
-      <v-button size="tiny">Tiny button</v-button>
-      <v-input size="tiny" label="tiny-input" />
-      <v-select :items="listItems" size="tiny" label="dropdown" />
+      <v-button
+        icon="fa-coffee"
+        :primary="isPrimary"
+        @click="isPrimary = !isPrimary"
+        tiny
+        >Tiny button</v-button
+      >
+      <v-button tiny>Tiny button</v-button>
+      <v-input tiny label="tiny-input" />
+      <v-select :items="listItems" tiny label="dropdown" />
     </div>
     <div class="pb-3 space-x-2">
-      <v-button primary size="small">Small button</v-button>
-      <v-button size="small">Small button</v-button>
-      <v-input size="small" label="small-input" />
+      <v-button danger small>Small button</v-button>
+      <v-button small>Small button</v-button>
+      <v-input small label="small-input" />
       <v-select
         :items="listItems"
-        size="small"
+        small
         v-model="selectedListItem"
         label="dropdown"
       />
@@ -33,13 +39,13 @@
       />
     </div>
     <div class="pb-3 space-x-2">
-      <v-button primary size="large">Large button</v-button>
-      <v-button size="large">Large button</v-button>
-      <v-input size="large" disabled v-model="name" label="large input" />
+      <v-button primary large>Large button</v-button>
+      <v-button large>Large button</v-button>
+      <v-input large disabled v-model="name" label="large input" />
       <v-select
         :items="listItems"
         disabled
-        size="large"
+        large
         v-model="selectedListItem"
         label="dropdown"
       />
@@ -115,6 +121,7 @@ let listItems: Ref<Array<ListItem>> = ref([
     value: 3,
   },
 ])
+let isPrimary = ref(true)
 let selectedDropdownItem = ref()
 let selectedListItem = ref()
 </script>

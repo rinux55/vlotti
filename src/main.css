@@ -1,16 +1,16 @@
-input,
-button { 
+.v-input,
+.v-button { 
   @apply py-2 px-4 text-sm;
 
-  &.large {
+  &.v-large {
     @apply py-3 px-6 text-lg;
   }
   
-  &.small {
+  &.v-small {
     @apply py-1 px-3 text-sm;
   }
   
-  &.tiny {
+  &.v-tiny {
     @apply py-1 px-3 text-xs;
   }  
 }

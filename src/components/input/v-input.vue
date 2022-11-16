@@ -56,18 +56,19 @@ const value = computed({
   <input
     data-test="input"
     :aria-label="label"
+    class="v-input"
     :class="computedClass"
     v-model="value"
     v-bind="computedAttrs"
   />
 </template>
 <style scoped>
-input {
+.v-input {
   @apply rounded border-1 border-gray-300 shadow-sm  ring-primary-500 ring-3 ring-opacity-0 transition duration-150;
 }
 
-input:focus,
-input.focus {
+.v-input:focus,
+.v-input.focus {
   @apply ring-opacity-30 ring-3 border-primary-400 outline-none;
 }
 </style>
