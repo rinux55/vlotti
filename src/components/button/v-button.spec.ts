@@ -42,6 +42,20 @@ describe("v-button", () => {
     expect(wrapper.findComponent("[data-test=icon]").exists()).toBe(false)
   })
 
+  test("renders a disabled button", () => {
+    const wrapper = shallowMount(VButton, {
+      props: {
+        disabled: true,
+      },
+      slots: {
+        default: () => buttonText,
+      },
+    })
+
+    expect(wrapper.classes("v-disabled")).toBe(true)
+    expect(wrapper.props("disabled")).toBe(true)
+  })
+
   test.each([
     ["large", "v-large"],
     ["small", "v-small"],
