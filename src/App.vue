@@ -39,8 +39,8 @@
       />
     </div>
     <div class="pb-3 space-x-2">
-      <v-button primary large>Large button</v-button>
-      <v-button large>Large button</v-button>
+      <v-button large primary>Large button</v-button>
+      <v-button large disabled>Large button</v-button>
       <v-input large disabled v-model="name" label="large input" />
       <v-select
         :items="listItems"
