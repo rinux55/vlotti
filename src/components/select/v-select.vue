@@ -19,12 +19,12 @@ import {
   watch,
   getCurrentInstance,
   type ComponentPublicInstance,
-  type InputHTMLAttributes,
 } from "vue"
 
 interface SelectProps extends ColorProps, DisabledProps, SizeProps, ListProps {
   modelValue?: ListItem
   label: string
+  placeholder?: string
   searchable?: boolean
 }
 
@@ -56,16 +56,6 @@ watch(
   }
 )
 
-const inputAttributes = computed((): InputHTMLAttributes => {
-  const attributes: InputHTMLAttributes = {}
-
-  if (!props.searchable) {
-    attributes.readonly = true
-  }
-
-  return attributes
-})
-
 const inputProps = computed(() => {
   return pick(props, [
     "warning",
@@ -76,6 +66,7 @@ const inputProps = computed(() => {
     "large",
     "disabled",
     "label",
+    "placeholder",
   ])
 })
 
@@ -142,19 +133,19 @@ async function handleArrowKey(event: KeyboardEvent) {
         data-test="input-wrapper"
         class="v-input-wrapper"
         :class="{ active }"
-        aria-haspopup="listbox"
         :aria-expanded="active"
         :aria-owns="`v-list-${uid}`"
+        aria-haspopup="listbox"
       >
         <v-input
           data-test="input"
           @keydown.down="open()"
           @keydown="handleInput($event)"
           v-model="inputValue"
+          v-bind="{ ...inputProps }"
           :class="{ 'v-focus': active }"
           :aria-activedescendant="activeDescendant"
-          placeholder="select an item"
-          v-bind="{ ...inputAttributes, ...inputProps }"
+          :readonly="!searchable"
         />
         <v-icon icon="fa-chevron-down" class="v-icon" />
       </div>
@@ -169,13 +160,11 @@ async function handleArrowKey(event: KeyboardEvent) {
       >
         <v-list-item
           data-test="list-item"
-          v-for="item in filteredItems"
           ref="itemRefs"
+          v-for="item in filteredItems"
           :key="(item.value as string)"
-          :label="item.label"
-          :value="item.value"
-          :disabled="item.disabled"
           :id="`v-list-${uid}-item-${item.value}`"
+          v-bind="item"
           role="option"
         ></v-list-item>
         <v-list-item

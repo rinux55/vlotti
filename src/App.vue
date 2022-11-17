@@ -39,9 +39,7 @@
       />
     </div>
     <div class="pb-3 space-x-2">
-      <v-button :danger="isPrimary" @click="isPrimary = !isPrimary" large
-        >Large button</v-button
-      >
+      <v-button large primary>Large button</v-button>
       <v-button large disabled>Large button</v-button>
       <v-input large disabled v-model="name" label="large input" />
       <v-select
