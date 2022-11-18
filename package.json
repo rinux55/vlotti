@@ -1,6 +1,13 @@
 {
-  "name": "fluent-interface",
-  "version": "0.0.0",
+  "name": "vlotti",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Marijn Kok",
+    "email": "rinux55@gmail.com"
+  },
+  "description": "A simple component library for to use with Vue 3 and Windi.",
+  "keywords": ["vue", "windi", "component library"],
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
