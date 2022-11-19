@@ -23,7 +23,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
-    "@fortawesome/vue-fontawesome": "^3.0.1",
+    "@fortawesome/vue-fontawesome": "^3.0.2",
     "lodash-es": "^4.17.21",
     "mitt": "^3.0.0",
     "vue": "^3.2.36"
