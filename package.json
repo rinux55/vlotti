@@ -8,6 +8,15 @@
   },
   "description": "A simple component library for to use with Vue 3 and Windi.",
   "keywords": ["vue", "windi", "component library"],
+  "type": "module",
+  "main": "./dist/vlotti.umd.cjs",
+  "module": "./dist/vlotti.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vlotti.js",
+      "require": "./dist/vlotti.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",

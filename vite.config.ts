@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from "url"
-
+import { resolve } from "path"
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import WindiCSS from "vite-plugin-windicss"
@@ -11,6 +11,21 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
+    },
+  },
+  build: {
+    lib: {
+      entry: resolve(__dirname, "src/main.ts"),
+      name: "Vlotti",
+      fileName: "vlotti",
+    },
+    rollupOptions: {
+      external: ["vue"],
+      output: {
+        globals: {
+          vue: "Vue",
+        },
+      },
     },
   },
 })
