@@ -8,8 +8,8 @@ library.add(faCoffee, faChevronDown)
 
 const props = defineProps<{ icon: string }>()
 
-const computedIcon = computed((): string => {
-  return `fa-solid ${props.icon}`
+const computedIcon = computed((): Array<string> => {
+  return ["fas", props.icon]
 })
 </script>
 <template>
